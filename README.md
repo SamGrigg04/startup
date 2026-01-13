@@ -36,14 +36,16 @@ The application will consist of four pages. The home page, the guess page, the l
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Layout + structure of the application. Not sure if I want to do an SPA or not yet
-- **CSS** - Alignment and consistency throughout the app. Style fonts and colors so it looks at least a little nice. If I do a SPA then it will also be used to hide unwanted pages
-- **React** - Provides login, provides logic for switching pages, logic for guessing numbers, updates text
+- **HTML** - Layout + structure of the application. Not sure if I want to do an SPA or not yet, but I probably will. Diffrent page for home/guess/leaderboard/login
+- **CSS** - Alignment and consistency throughout the app. Style fonts and colors so it looks at least a little nice. If I do a SPA then it will also be used to hide unwanted pages. Adapt to different screen sizes, optimized for mobile. More padding than what the designer thing let me do.
+- **React** - Provides login, provides logic for switching pages, logic for guessing numbers, updates text, calls the backend endpoints.
 - **Service** - Backend service with endpoints for:
     - login
     - submitting leaderboard scores
-- **DB/Login** - Store users, leaderboard information. Can't be on the leaderboard unless you're logged in.
-- **WebSocket** - Live updates to the leaderboard. 
+    - retrieving leaderboard scores
+    - Register users, store credentials
+- **DB/Login** - Store user authentication information and leaderboard information. Can't be on the leaderboard unless you're logged in.
+- **WebSocket** - Live updates to the leaderboard as players achieve better times.
 
 ## 🚀 AWS deliverable
 

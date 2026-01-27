@@ -51,21 +51,21 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
+- [x] **Server deployed and accessible with custom domain name** - [My server link](https://numbrguessr.click).
 
 ## 🚀 HTML deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - Created HTML pages for each component of the application.
+- [x] **Proper HTML element usage** - Proper use of HTML tags including BODY, NAV, MAIN, HEADER, FOOTER.
+- [x] **Links** - Links between pages as necessary.
+- [ ] **Text** - Application textual content.
+- [ ] **3rd party API placeholder** - Placeholder for 3rd party service calls.
+- [ ] **Images** - Application images.
+- [ ] **Login placeholder** - Login placeholder, including username display.
+- [ ] **DB data placeholder** - Database data placeholder showing content stored in the database.
+- [ ] **WebSocket placeholder** - Websocket data placeholder showing where realtime communication will go.
 
 ## 🚀 CSS deliverable
 

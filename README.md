@@ -1,61 +1,51 @@
 # NumbrGuessr
 
-[My Notes](notes.md)
+This application selects a random number from 1 to 1000 and responds to user's guesses by telling them that the number is higher or lower. It times the user and posts the fastest times on a leaderboard.
 
-Do you like search algortihms? How about blind luck? NumbrGuessr combines those two concepts in a number-guessing game. Guess a number between 1-1000 in the shortest time possible! Every wrong guess will be rewarded with a hint to get you closer to the real number. Do you have the determination to guess over and over again in hopes of shaving miliseconds off of your score? Will you simply be satisfied with guessing a meaningless number, or will you attempt to dominate the leaderboard? Play NumberGuessr today!
-
-> [!NOTE]
-> This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
-
-> [!NOTE]
-> If you are not familiar with Markdown then you should review the [documentation](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) before continuing.
 
 ## 🚀 Specification Deliverable
 
-> [!NOTE]
-> Fill in this sections as the submission artifact for this deliverable. You can refer to this [example](https://github.com/webprogramming260/startup-example/blob/main/README.md) for inspiration.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] Proper use of Markdown
+- [x] A concise and compelling elevator pitch
+- [x] Description of key features
+- [x] Description of how you will use each technology
+- [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Do you like search algortihms? How about blind luck? NumbrGuessr combines those two concepts in a number-guessing game. Guess a number between 1-1000 in the shortest time possible! Every wrong guess will be rewarded with a hint to get you closer to the real number. Do you have the determination to guess over and over again in hopes of shaving miliseconds off of your score? Will you simply be satisfied with guessing a meaningless number, or will you attempt to dominate the leaderboard? Play NumberGuessr today!
 
 ### Design
 
-![Design image](placeholder.png)
+![Design image](HomePage.png) ![Design image](GuessPage.png) ![Design image](LeaderboardPage.png) ![Design image](LoginPage.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-```mermaid
-sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
-```
+The application will consist of four pages. The home page, the guess page, the leaderboard page, and the login page. Buttons will direct the user to the appropriate page. Text boxes that take input are all one color, text boxes that don't take input are all another color, and buttons are yet another color. The layout and pallet remain consistent throughout the design (although I definately will be changing the colors later on, I just needed something quick to start with). Also I might add the number of guesses it took to the leaderboard.
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Secure login
+- Leaderboard displaying the fastest times
+- Number pad comes up when you tap the number guessing text box
+- Text dynamically appears depending on user input
+- Generates a random number each time
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - Layout + structure of the application. Not sure if I want to do an SPA or not yet, but I probably will. Diffrent page for home/guess/leaderboard/login
+- **CSS** - Alignment and consistency throughout the app. Style fonts and colors so it looks at least a little nice. If I do a SPA then it will also be used to hide unwanted pages. Adapt to different screen sizes, optimized for mobile. More padding than what the designer thing let me do.
+- **React** - Provides login, provides logic for switching pages, logic for guessing numbers, updates text, calls the backend endpoints.
+- **Service** - Backend service with endpoints for:
+    - login
+    - submitting leaderboard scores
+    - retrieving leaderboard scores
+    - Register users, store credentials
+- **DB/Login** - Store user authentication information and leaderboard information. Can't be on the leaderboard unless you're logged in.
+- **WebSocket** - Live updates to the leaderboard as players achieve better times.
 
 ## 🚀 AWS deliverable
 

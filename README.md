@@ -20,7 +20,7 @@ Do you like search algortihms? How about blind luck? NumbrGuessr combines those 
 
 ### Design
 
-![Design image](HomePage.png) ![Design image](GuessPage.png) ![Design image](LeaderboardPage.png) ![Design image](LoginPage.png)
+![Design image](HomePage.png) ![Design image](PlayPage.png) ![Design image](LeaderboardPage.png) ![Design image](LoginPage.png)
 
 The application will consist of four pages. The home page, the guess page, the leaderboard page, and the login page. Buttons will direct the user to the appropriate page. Text boxes that take input are all one color, text boxes that don't take input are all another color, and buttons are yet another color. The layout and pallet remain consistent throughout the design (although I definately will be changing the colors later on, I just needed something quick to start with). Also I might add the number of guesses it took to the leaderboard.
 

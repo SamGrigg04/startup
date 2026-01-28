@@ -60,12 +60,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **HTML pages** - Created HTML pages for each component of the application.
 - [x] **Proper HTML element usage** - Proper use of HTML tags including BODY, NAV, MAIN, HEADER, FOOTER.
 - [x] **Links** - Links between pages as necessary.
-- [ ] **Text** - Application textual content.
-- [ ] **3rd party API placeholder** - Placeholder for 3rd party service calls.
-- [ ] **Images** - Application images.
-- [ ] **Login placeholder** - Login placeholder, including username display.
-- [ ] **DB data placeholder** - Database data placeholder showing content stored in the database.
-- [ ] **WebSocket placeholder** - Websocket data placeholder showing where realtime communication will go.
+- [x] **Text** - Application textual content.
+- [x] **3rd party API placeholder** - Placeholder for 3rd party service calls.
+- [x] **Images** - Application images.
+- [x] **Login placeholder** - Login placeholder, including username display.
+- [x] **DB data placeholder** - Database data placeholder showing content stored in the database.
+- [x] **WebSocket placeholder** - Websocket data placeholder showing where realtime communication will go.
 
 ## 🚀 CSS deliverable
 

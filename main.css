@@ -1,0 +1,85 @@
+* {
+    margin: 10;
+    padding: 10;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(150, 250, 150);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 16px;
+    min-height: 100vh; /* no whitespace at the bottom */
+    min-width: 100%; /* no whitespace at the edges */
+    display: grid;
+    grid-template-areas: 
+    "header"
+    "main"
+    "footer";
+    grid-template-rows: auto 1fr auto;
+}
+
+header {
+    grid-area: header;
+    display: flex;
+    flex-wrap: wrap;
+    place-content: center;
+    background-color: rgb(100, 180, 100);
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    padding: 0px;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+}
+
+nav a {
+    font-size: 20px;
+    padding: 4px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background-color: rgba(50, 50, 160, 0.75);
+    border-color: rgb(255, 255, 255);
+    border-radius: 5%;
+}
+
+nav a:hover {
+    background-color: rgb(40, 40, 130);
+}
+
+#logo {
+    display: flex;
+    height: auto;
+    max-width: 50px;
+    margin-left: 10%;
+}
+
+nav ul {
+    padding: 5px;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    list-style-type: none;
+    justify-content: space-evenly;
+    text-decoration: none;
+    align-items: center;
+}
+
+nav li {
+    padding: 0;
+    margin: 0;
+}
+
+.page-title {
+    color: rgb(255, 255, 255);
+    background-color: rgb(100, 180, 100);
+    justify-self: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+

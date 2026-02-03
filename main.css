@@ -1,5 +1,6 @@
 *, *::before, *::after {
     box-sizing: border-box;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 html {
@@ -8,8 +9,6 @@ html {
 }
 
 body {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 16px;
     display: grid;
     grid-template-areas: 
     "header"

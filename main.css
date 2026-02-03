@@ -8,8 +8,6 @@ body {
     background-color: rgb(150, 250, 150);
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 16px;
-    min-height: 100vh; /* no whitespace at the bottom */
-    min-width: 100%; /* no whitespace at the edges */
     display: grid;
     grid-template-areas: 
     "header"
@@ -28,7 +26,9 @@ header {
 
 nav {
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-areas: "logo" "elements";
+    grid-template-columns: 0% 100%;
     padding: 0px;
     justify-content: space-between;
     align-items: center;
@@ -36,8 +36,9 @@ nav {
 }
 
 nav a {
+    grid-area: "elements";
     font-size: 20px;
-    padding: 4px;
+    padding: 5px;
     text-decoration: none;
     color: rgb(255, 255, 255);
     background-color: rgba(50, 50, 160, 0.75);
@@ -50,10 +51,9 @@ nav a:hover {
 }
 
 #logo {
-    display: flex;
+    grid-area: "logo";
     height: auto;
     max-width: 50px;
-    margin-left: 10%;
 }
 
 nav ul {
@@ -72,14 +72,27 @@ nav li {
     margin: 0;
 }
 
-.page-title {
-    color: rgb(255, 255, 255);
-    background-color: rgb(100, 180, 100);
-    justify-self: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
+main {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
 }
 
+.page-title {
+    display: flex;
+    color: rgb(255, 255, 255);
+    background-color: rgb(100, 180, 100);
+    justify-content: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+footer {
+    grid-area: footer;
+    display: flex;
+}
+
+footer a {
+    align-content: right;
+}
 

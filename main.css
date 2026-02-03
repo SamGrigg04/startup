@@ -1,11 +1,13 @@
-* {
-    margin: 10;
-    padding: 10;
+*, *::before, *::after {
     box-sizing: border-box;
 }
 
-body {
+html {
+    padding: 2px;
     background-color: rgb(150, 250, 150);
+}
+
+body {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 16px;
     display: grid;
@@ -13,7 +15,9 @@ body {
     "header"
     "main"
     "footer";
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto 90% auto;
+    min-height: 97vh;
+    min-width: 97vw;
 }
 
 header {
@@ -42,18 +46,21 @@ nav a {
     text-decoration: none;
     color: rgb(255, 255, 255);
     background-color: rgba(50, 50, 160, 0.75);
+    border-style: solid;
     border-color: rgb(255, 255, 255);
-    border-radius: 5%;
+    border-radius: 10%;
 }
 
-nav a:hover {
+nav a:hover, #login-btn:hover, #create-acc:hover {
     background-color: rgb(40, 40, 130);
+    color: rgb(255, 255, 255);
 }
 
 #logo {
     grid-area: "logo";
     height: auto;
     max-width: 50px;
+    padding: 3px;
 }
 
 nav ul {
@@ -76,6 +83,7 @@ main {
     grid-area: main;
     display: flex;
     flex-direction: column;
+    background-color: rgb(150, 250, 150);
 }
 
 .page-title {
@@ -83,16 +91,40 @@ main {
     color: rgb(255, 255, 255);
     background-color: rgb(100, 180, 100);
     justify-content: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 1.5%;
+    margin-top: 5px;
+    max-width: fit-content;
+    align-self: center;
+}
+
+#login-btn, #create-acc {
+    background-color: rgba(50, 50, 160, 0.75);
+}
+
+main form {
+    align-self: center;
+    justify-items: center;
+    border-style: solid;
+    max-width: min-content;
+    padding: 20px;
+    margin-top: 5%;
+}
+
+main form div {
+    margin: 5%;
 }
 
 footer {
     grid-area: footer;
     display: flex;
+    justify-content: flex-end;
+    background-color: rgb(100, 180, 100);
+    color: rgb(255, 255, 255);
+    padding: 5px;
 }
 
 footer a {
-    align-content: right;
+    color: white;
+    padding-right: 10px;
 }
 

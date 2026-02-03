@@ -5,27 +5,26 @@
     <!-- Tell browsers not to scale the viewport automatically -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NumbrGuessr HTML</title>
-    <link rel="icon" href="images/tab_icon.png">
+    <link rel="icon" href="images/tab_icon.png" />
+    <link rel="stylesheet" href="main.css" />
   </head>
   <body>
     <!-- Use header, main, and footer elements to give semantic structure -->
     <header>
-      <h1>NumbrGuessr</h1>
-
       <!-- Navigation elements -->
       <nav>
-        <!-- Keeping the menu for TA ease of access -->
-        <menu>
-          <li><a href="index.html">Login</a></li>
-          <li><a href="play.html">Play</a></li>
-          <li><a href="scores.html">Scores</a></li>
-          <li><a href="home.html">Home</a></li>
-        </menu>
-      </nav>
+            <img src="images/tab_icon.png" alt="logo" id="logo">
+            <ul>
+                <li><a href="index.html">Login</a></li>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="play.html">Play</a></li>
+                <li><a href="scores.html">Scores</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
-      <h1>Welcome to NumbrGuessr</h1>
+      <h1 class="page-title">Welcome to NumbrGuessr</h1>
       <form method="get" action="home.html">
         <div>
           <input type="text" placeholder="username" />

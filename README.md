@@ -74,7 +74,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Visually appealing colors and layout. No overflowing elements.** - Colors work together imo. Layout is consistent between pages
 - [x] **Use of a CSS framework** - There is some bootstrap in there for some buttons
 - [x] **All visual elements styled using CSS** - All visible HTML components have some styling
-- [x] **Responsive to window resizing using flexbox and/or grid display** - Used grid for the high-level layout and flex for child components
+- [x] **Responsive to window resizing using flexbox and/or grid display** - Used grid for the high-level layout and flex for child components. Checked mobile layout using Chrome dev tools to make sure it looks nice.
 - [x] **Use of a imported font** - Used the Georgia font family with Times New Roman as the main font
 - [x] **Use of different types of selectors including element, class, ID, and pseudo selectors** - All selector types used to style specific elements
 

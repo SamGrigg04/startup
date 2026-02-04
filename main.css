@@ -16,7 +16,6 @@ body {
     "footer";
     grid-template-rows: auto 90% auto;
     min-height: 97vh;
-    min-width: 97vw;
 }
 
 header {
@@ -50,7 +49,7 @@ nav a {
     border-radius: 10%;
 }
 
-nav a:hover, #login-btn:hover, #create-acc:hover {
+nav a:hover, #login-btn:hover, #create-acc:hover, #guess-btn:hover {
     background-color: rgb(40, 40, 130);
     color: rgb(255, 255, 255);
 }
@@ -96,7 +95,7 @@ main {
     align-self: center;
 }
 
-#login-btn, #create-acc {
+#login-btn, #create-acc, #guess-btn {
     background-color: rgba(50, 50, 160, 0.75);
 }
 

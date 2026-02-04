@@ -1,0 +1,55 @@
+#hint, #api, #websocket {
+    justify-self: center;
+    align-self: center;
+}
+
+div {
+    margin: 3%;
+}
+
+main form {
+    margin-top: 0px;
+}
+
+#timer h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: underline;
+}
+
+#timer {
+    align-self: center;
+    justify-items: center;
+    border-style: solid;
+    max-width: min-content;
+    background-color: rgb(90, 160, 90);
+}
+
+#time {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(100, 180, 100);
+    margin-bottom: 0px;
+}
+
+.digit {
+    font-size: 70px;
+    color: rgb(255, 255, 255);
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.txt {
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    align-self: last baseline;
+    margin-bottom: 3%;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+footer div, footer span {
+    margin: 0px;
+}

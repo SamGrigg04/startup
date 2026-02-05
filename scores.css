@@ -13,10 +13,15 @@ table {
 th, td {
     padding: 8px 16px;
     text-align: center;
+    font-family: importedFont;
 }
 
 th, td {
     border: none;
 }
 
+@font-face {
+    font-family: importedFont;
+    src: url(HussarBoldCondensed-mmrV.otf);
+}
 

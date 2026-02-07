@@ -4,7 +4,9 @@
   "description": "This application selects a random number from 1 to 1000 and responds to user's guesses by telling them that the number is higher or lower. It times the user and posts the fastest times on a leaderboard.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",

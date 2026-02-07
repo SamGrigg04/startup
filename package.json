@@ -1,0 +1,31 @@
+{
+  "name": "startup",
+  "version": "1.0.0",
+  "description": "This application selects a random number from 1 to 1000 and responds to user's guesses by telling them that the number is higher or lower. It times the user and posts the fastest times on a leaderboard.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamGrigg04/CS-260.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/SamGrigg04/CS-260/issues"
+  },
+  "homepage": "https://github.com/SamGrigg04/CS-260#readme",
+  "devDependencies": {
+    "vite": "^7.3.1"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "react": "^19.2.4",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.0"
+  }
+}

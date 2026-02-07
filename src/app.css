@@ -8,7 +8,7 @@ html {
     background-color: rgb(150, 250, 150);
 }
 
-body {
+.app {
     display: grid;
     grid-template-areas: 
     "header"

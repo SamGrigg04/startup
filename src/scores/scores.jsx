@@ -16,15 +16,14 @@ export function Scores() {
           </thead>
 
           <tbody>
-            {/* <!-- Add medals to the first three places --> */}
             <tr>
-              <td>1st</td><td>[NAME]</td><td>[TIME]</td>
+              <td><img src="public/first.png" alt="first" id="medal" /></td><td>[NAME]</td><td>[TIME]</td>
             </tr>
             <tr>
-              <td>2nd</td><td>[NAME]</td><td>[TIME]</td>
+              <td><img src="public/second.png" alt="second" id="medal" /></td><td>[NAME]</td><td>[TIME]</td>
             </tr>
             <tr>
-              <td>3rd</td><td>[NAME]</td><td>[TIME]</td>
+              <td><img src="public/third.png" alt="third" id="medal" /></td><td>[NAME]</td><td>[TIME]</td>
             </tr>
             <tr>
               <td>4th</td><td>[NAME]</td><td>[TIME]</td>

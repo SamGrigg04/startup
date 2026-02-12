@@ -4,7 +4,6 @@
 }
 
 html {
-    padding: 2px;
     background-color: rgb(150, 250, 150);
 }
 
@@ -16,6 +15,11 @@ html {
     "footer";
     grid-template-rows: auto 90% auto;
     min-height: 97vh;
+}
+
+#root {
+    background-color: rgb(150, 250, 150);
+    margin: 0px;
 }
 
 header {
@@ -54,7 +58,7 @@ nav a:hover, #login-btn:hover, #create-acc:hover, #guess-btn:hover {
     color: rgb(255, 255, 255);
 }
 
-#logo {
+#logo, #medal {
     grid-area: "logo";
     height: auto;
     max-width: 50px;

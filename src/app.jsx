@@ -1,7 +1,10 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { Login } from './login/login';
+import { Play } from './play/play';
+import { Scores } from './scores/scores';
 
 export default function App() {
   return (
@@ -11,14 +14,19 @@ export default function App() {
           <nav>
             <img src="images/tab_icon.png" alt="logo" id="logo" />
             <ul>
-              <li><a href="index.html">Login</a></li>
-              <li><a href="play.html">Play</a></li>
-              <li><a href="scores.html">Scores</a></li>
+              <li><NavLink to="">Login</NavLink></li>
+              <li><NavLink to="play">Play</NavLink></li>
+              <li><NavLink to="scores">Scores</NavLink></li>
             </ul>
           </nav>
         </header>
 
-        <main>App Components Here</main>
+        <Routes>
+          <Route path='/' element={<Login />} exact />
+          <Route path='/play' element={<Play />} />
+          <Route path='/scores' element={<Scores />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
 
         <footer>
           <span>Author Name: Samuel Grigg &nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -29,4 +37,8 @@ export default function App() {
       </div>;
     </BrowserRouter>
   );
+}
+
+function NotFound() {
+  return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
 }

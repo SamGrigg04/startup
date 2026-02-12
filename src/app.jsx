@@ -12,7 +12,7 @@ export default function App() {
       <div className="app">
         <header>
           <nav>
-            <img src="public/tab_icon.png" alt="logo" id="logo" />
+            <img src="tab_icon.png" alt="logo" id="logo" />
             <ul>
               <li><NavLink to="">Login</NavLink></li>
               <li><NavLink to="play">Play</NavLink></li>

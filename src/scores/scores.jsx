@@ -17,13 +17,13 @@ export function Scores() {
 
           <tbody>
             <tr>
-              <td><img src="public/first.png" alt="first" id="medal" /></td><td>[NAME]</td><td>[TIME]</td>
+              <td><img src="first.png" alt="first" id="medal" /></td><td>[NAME]</td><td>[TIME]</td>
             </tr>
             <tr>
-              <td><img src="public/second.png" alt="second" id="medal" /></td><td>[NAME]</td><td>[TIME]</td>
+              <td><img src="second.png" alt="second" id="medal" /></td><td>[NAME]</td><td>[TIME]</td>
             </tr>
             <tr>
-              <td><img src="public/third.png" alt="third" id="medal" /></td><td>[NAME]</td><td>[TIME]</td>
+              <td><img src="third.png" alt="third" id="medal" /></td><td>[NAME]</td><td>[TIME]</td>
             </tr>
             <tr>
               <td>4th</td><td>[NAME]</td><td>[TIME]</td>

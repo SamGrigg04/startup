@@ -12,7 +12,7 @@ export default function App() {
       <div className="app">
         <header>
           <nav>
-            <img src="images/tab_icon.png" alt="logo" id="logo" />
+            <img src="public/tab_icon.png" alt="logo" id="logo" />
             <ul>
               <li><NavLink to="">Login</NavLink></li>
               <li><NavLink to="play">Play</NavLink></li>
@@ -40,5 +40,5 @@ export default function App() {
 }
 
 function NotFound() {
-  return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
+  return <main>404: Return to sender. Address unknown.</main>;
 }

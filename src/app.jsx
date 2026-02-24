@@ -34,7 +34,7 @@ export default function App() {
             <a href="https://github.com/SamGrigg04/startup/tree/main">GitHub</a>
           </div>
         </footer>
-      </div>;
+      </div>
     </BrowserRouter>
   );
 }

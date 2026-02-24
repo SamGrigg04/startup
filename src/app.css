@@ -13,13 +13,16 @@ html {
     "header"
     "main"
     "footer";
-    grid-template-rows: auto 90% auto;
-    min-height: 97vh;
+    grid-template-rows: auto 88% auto;
+    min-height: 100vh;
+    margin: 0px;
+    padding: 0px;
 }
 
 #root {
     background-color: rgb(150, 250, 150);
     margin: 0px;
+    padding: 0px;
 }
 
 header {

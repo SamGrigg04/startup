@@ -43,20 +43,34 @@ export function NumbrGame(props) {
     } // Now timerRef is a reference to the timer currently running so we can stop it later
   };
 
+  const handleGuess = () => {
+    const num = Number(guess); // set num to be the user input
+    if (Number.isNaN(num)) return; // if it isn't a number, do nothing. return early
 
-  async function onPressed(buttonPosition) {
-    
-  }
-
-  async function reset() {
-    setGuess("");
-    setHint("");
-    setTime(0);
-    setIsCorrect(false);
+    startTimer();
 
     // Let other players know a new game has started
     GameNotifier.broadcastEvent(userName, GameEvent.Start, {});
-  }
+
+    // Logic for the dynamic hint
+    if (num < target) {
+      setHint("higher");
+    } else if (num > target) {
+      setHint("lower");
+    } else {
+      setHint("correct!");
+      setIsCorrect(true); // Also disables the button so they can't keep guessing
+      clearInterval(timerRef.current); // Stops the timer
+
+      // Saves the result to local storage as a string and updates the leaderboard
+      updateScoresLocal({
+        userName,
+        time,
+        number: target,
+        finishedAt: new Date().toISOString()
+      });
+    }
+  };
 
   // Returns a random integer between 1 and 1000
   function getRandomInt() {
@@ -65,52 +79,38 @@ export function NumbrGame(props) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  async function saveScore(score) {
-    const date = new Date().toLocaleDateString();
-    const newScore = { name: userName, score: score, date: date };
-
-    // Let other players know the game has concluded
-    GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
-
-    updateScoresLocal(newScore);
-  }
-
+  // Updates the leaderboard
   function updateScoresLocal(newScore) {
     let scores = [];
+
+    // Gets the current data from the leaderboard
     const scoresText = localStorage.getItem('scores');
     if (scoresText) {
       scores = JSON.parse(scoresText);
     }
 
-    let found = false;
-    for (const [i, prevScore] of scores.entries()) {
-      if (newScore.score > prevScore.score) {
+    // Inserts the new score based off the time
+    // let found = false;
+    for (const [i, prevScore] of scores.entries()) { // what a weird loop syntax. c'mon react
+      if (newScore.time < prevScore.time) {
         scores.splice(i, 0, newScore);
-        found = true;
+        // found = true;
         break;
       }
     }
 
-    if (!found) {
-      scores.push(newScore);
-    }
+    // // if the new score
+    // if (!found) {
+    //   scores.push(newScore);
+    // }
 
+    // Keep the leaderboard to the top 10
     if (scores.length > 10) {
       scores.length = 10;
     }
 
     localStorage.setItem('scores', JSON.stringify(scores));
   }
-
-  // We use React refs so the game can drive button press events
-  buttons.set('button-top-left', { position: 'button-top-left', ref: React.useRef() });
-  buttons.set('button-top-right', { position: 'button-top-right', ref: React.useRef() });
-  buttons.set('button-bottom-left', { position: 'button-bottom-left', ref: React.useRef() });
-  buttons.set('button-bottom-right', { position: 'button-bottom-right', ref: React.useRef() });
-
-  const buttonArray = Array.from(buttons, ([key, value]) => {
-    return <SimonButton key={key} ref={value.ref} position={key} onPressed={() => onPressed(key)}></SimonButton>;
-  });
 
   return (
     <div className='game'>

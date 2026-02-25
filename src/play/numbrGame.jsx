@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Button } from 'react-bootstrap';
-import { GameEvent, GameNotifier } from './gameNotifier';
+import { GameEvent, GameNotifier } from '../gameNotifier';
 import { useTimer } from './timer'
 import { APIcall } from './APIcall';
 import './numbrGame.css';
@@ -94,7 +94,7 @@ export function NumbrGame(props) {
 
     // if the new score is the lowest, add it anyways
     if (!found) {
-      newScore.time = `${minutesStr}:${secondsStr}:${millisecondsStr}`;
+      newScore.time = timeStr;
       scores.push(newScore);
     }
 

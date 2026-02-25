@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Button } from 'react-bootstrap';
 import { GameEvent, GameNotifier } from './gameNotifier';
-import {} from './hint';
 import {} from './APIcall';
 import {} from './guessButton';
 import './numbrGame.css';
@@ -31,6 +30,13 @@ export function NumbrGame(props) {
   useEffect(() => {
     return () => clearInterval(timerRef.current);
   }, []);
+
+  // Returns a random integer between 1 and 1000
+  function getRandomInt() {
+    min = 1;
+    max = 1000;
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
 
   // Starts the timer once the user makes the first guess
   const startTimer = () => {
@@ -73,13 +79,6 @@ export function NumbrGame(props) {
     }
   };
 
-  // Returns a random integer between 1 and 1000
-  function getRandomInt() {
-    min = 1;
-    max = 1000;
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
   // Updates the leaderboard
   function updateScoresLocal(newScore) {
     let scores = [];
@@ -91,7 +90,7 @@ export function NumbrGame(props) {
     }
 
     // Inserts the new score based off the time
-    // let found = false;
+    let found = false;
     for (const [i, prevScore] of scores.entries()) { // what a weird loop syntax. c'mon react
       if (newScore.time < prevScore.time) {
         scores.splice(i, 0, newScore);
@@ -100,10 +99,10 @@ export function NumbrGame(props) {
       }
     }
 
-    // // if the new score
-    // if (!found) {
-    //   scores.push(newScore);
-    // }
+    // if the new score is the lowest, add it anyways
+    if (!found) {
+      scores.push(newScore);
+    }
 
     // Keep the leaderboard to the top 10
     if (scores.length > 10) {
@@ -126,11 +125,23 @@ export function NumbrGame(props) {
 
         <form>
             <div>
-                <input type="number" placeholder="Your guess..." />
+                <input 
+                type="number" 
+                placeholder="Your guess..." 
+                value={guess}
+                onChange={(e) => setGuess(e.target.value)}
+                />
             </div>
 
             <div>
-                <button class="btn btn-primary" type="submit" id="guess-btn">GUESS</button>
+                <Button 
+                  class="btn btn-primary" 
+                  variant="primary"
+                  id="guess-btn"
+                  onClick={handleGuess}
+                 >
+                  GUESS
+                </Button>
             </div>
         </form>
 

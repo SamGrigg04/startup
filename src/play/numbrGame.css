@@ -17,16 +17,25 @@
     display: inline;
 }
 
+#hint {
+    background-color: rgb(111, 211, 111);
+    padding: 5px;
+}
+
+#hint p {
+    margin: 5px;
+}
+
 #hint.higher {
-    color: blue;
+    color: rgb(0, 0, 170);
 }
 
 #hint.lower {
-  color: red;
+  color: rgb(156, 0, 0);
 }
 
 #hint.correct {
-  color: green;
+  color: rgb(246, 255, 163);
   font-weight: bold;
 }
 

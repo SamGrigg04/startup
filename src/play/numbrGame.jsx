@@ -5,6 +5,7 @@ import { GameEvent, GameNotifier } from './gameNotifier';
 import {} from './hint';
 import {} from './APIcall';
 import {} from './guessButton';
+import './numbrGame.css';
 
 /*
 Makes the game functional.
@@ -116,9 +117,10 @@ export function NumbrGame(props) {
     <div className='game'>
         <h1 class="page-title">Welcome, {userName}!</h1> 
 
-        <div id="hint">
+        <div id="hint" className={hint}> {/* This is neat, it lets us change the styling based on what the hint is */}
             <p>
-            HINT GOES HERE
+            {/* If the hint variable is empty, display placeholder text. Otherwise, display 'The answer is [hint]!' */}
+            {hint ? `The answer is ${hint}!` : "Make a guess..."} {/* Seriously React, get a handle on your weird syntax */}
             </p>
         </div>
 

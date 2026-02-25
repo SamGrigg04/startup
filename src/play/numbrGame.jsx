@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { GameEvent, GameNotifier } from './gameNotifier';
 import { useTimer } from './timer'
-// import {} from './APIcall';
+import { APIcall } from './APIcall';
 import './numbrGame.css';
 
 /*
@@ -155,7 +155,7 @@ export function NumbrGame(props) {
         </div>
 
         <div id="api">
-            {/* <p>{fact} Fun facts about the number you guessed here: http://numbersapi.com/</p> */}
+            <APIcall number={lastGuess}></APIcall>
         </div>
 
         <div id="websocket">

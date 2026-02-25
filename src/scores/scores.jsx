@@ -50,7 +50,7 @@ export function Scores() {
         </table>
       </div>
 
-      <p id="database">The leaderboard uses database stuff and websocket for live updates</p>
+      {/* <p id="database">The leaderboard uses database stuff and websocket for live updates</p> */}
     </main>
   );
 }

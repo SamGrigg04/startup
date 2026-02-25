@@ -1,10 +1,12 @@
 #hint, #api, #websocket {
     justify-self: center;
     align-self: center;
+    align-items: center;
+    justify-items: center;
 }
 
 div {
-    margin: 3%;
+    margin: 1%;
 }
 
 main form {

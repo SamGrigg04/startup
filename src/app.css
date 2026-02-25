@@ -13,7 +13,7 @@ html {
     "header"
     "main"
     "footer";
-    grid-template-rows: auto 88% auto;
+    grid-template-rows: 8% auto 5%;
     min-height: 100vh;
     margin: 0px;
     padding: 0px;

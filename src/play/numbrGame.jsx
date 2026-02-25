@@ -59,17 +59,20 @@ export function NumbrGame(props) {
       stopTimer()
 
       // Let other players know a new game has started
-      GameNotifier.broadcastEvent(userName, GameEvent.End, {userName, timeStr, number:target});
+      GameNotifier.broadcastEvent(userName, GameEvent.End, {userName, time: timeStr});
 
       // Saves the result to local storage as a string and updates the leaderboard
       updateScoresLocal({
         userName,
-        time,
-        number: target,
-        finishedAt: new Date().toISOString()
+        time
       });
     }
   };
+
+    function timeToMs(timeStr) {
+      const [min, sec, mil] = timeStr.split(':').map(Number);
+      return min * 60000 + sec * 1000 + mil * 10;
+    }
 
   // Updates the leaderboard
   function updateScoresLocal(newScore) {
@@ -84,8 +87,7 @@ export function NumbrGame(props) {
     // Inserts the new score based off the time
     let found = false;
     for (const [i, prevScore] of scores.entries()) { // what a weird loop syntax. c'mon react
-      if (newScore.time < prevScore.time) {
-        newScore.time = timeStr;
+      if (timeToMs(newScore.time) < timeToMs(prevScore.time)) {
         scores.splice(i, 0, newScore);
         found = true;
         break;
@@ -94,7 +96,6 @@ export function NumbrGame(props) {
 
     // if the new score is the lowest, add it anyways
     if (!found) {
-      newScore.time = timeStr;
       scores.push(newScore);
     }
 

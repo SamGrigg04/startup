@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Button } from 'react-bootstrap';
 import { GameEvent, GameNotifier } from './gameNotifier';
+import { useTimer } from './timer'
 // import {} from './APIcall';
-// import {} from './guessButton';
 import './numbrGame.css';
 
 /*
@@ -19,18 +19,10 @@ export function NumbrGame(props) {
   const [target, setTarget] = React.useState(() => getRandomInt()); // Sets the number the player will be guessing and saves it as target
   const [guess, setGuess] = React.useState(""); // Initialized the guess variable to be empty and the function to update the guess as setGuess()
   const [hint, setHint] = React.useState(""); // Initializes the hint to be empty and declares the function to update the hint as setHint()
-  const [time, setTime] = React.useState(0); // Sets the time at zero and the function to change that as setTime()
   const [isCorrect, setIsCorrect] = React.useState(false); // They start as incorrect. We can change that with the setIsCorrect() function
   const [lastGuess, setLastGuess] = React.useState(""); // Just here for some nice UI stuff
 
-  const timerRef = React.useRef(null); // This is a reference to the running timer. It allows us to start and stop the timer
-  const startedRef = React.useRef(false); // This makes it so only the first guess starts the timer
-  const timestamp = React.useRef(null); // Stores the current system time
-
-  // Resets the interval (timer) when they leave the page
-  React.useEffect(() => {
-    return () => clearInterval(timerRef.current);
-  }, []);
+  const {time, startTimer, stopTimer} = useTimer(); // Get all the time stuff from the timer.jsx
 
   // Returns a random integer between 1 and 1000
   function getRandomInt() {
@@ -39,21 +31,9 @@ export function NumbrGame(props) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  // Starts the timer once the user makes the first guess
-  const startTimer = () => {
-    if (!startedRef.current) { // If the timer isn't already going (stops the timer from starting over every time they guess)
-      startedRef.current = true; // Set the flag so we don't run the timer again
-      timestamp.current = Date.now(); // Sets the timestamp to the current time
-
-      timerRef.current = setInterval(() => {
-        setTime(Date.now() - timestamp.current); // Updates time to the elapsed time
-      }, 16); // Visually updates the timer ~60 times/second
-    } // Now timerRef is a reference to the timer currently running so we can stop it later
-  };
-
   const handleGuess = () => {
-        const num = Number(guess); // set num to be the user input
-    if (!guess || guess.trim() == "" || Number.isNaN(num)) return; // if there is no guess or it is empty or it is not a number, do nothing. return early
+    const num = Number(guess); // set num to be the user input
+    if (!guess || guess.trim() == "" || Number.isNaN(num) || isCorrect) return; // if there is no guess or it is empty or it is not a number or you already got it, do nothing. return early
 
     setLastGuess(num); // for UI stuff
     startTimer();
@@ -69,8 +49,7 @@ export function NumbrGame(props) {
     } else {
       setHint("correct");
       setIsCorrect(true); // Also disables the button so they can't keep guessing
-      clearInterval(timerRef.current); // Stops the timer
-
+      stopTimer()
       // Saves the result to local storage as a string and updates the leaderboard
       updateScoresLocal({
         userName,

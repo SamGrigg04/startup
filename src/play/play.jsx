@@ -1,10 +1,17 @@
 import React from 'react';
 import './play.css';
+import { Players } from './players';
+import { numbrGame} from './numbrGame';
 
-export function Play() {
+
+export function Play(properties) {
   return (
     <main>
-      <h1 class="page-title">Welcome, [USERNAME]!</h1>
+      {/* <h1 class="page-title">Welcome, {userName}!</h1> */}
+      <numbrGame userName={properties.userName} />
+      <Players userName={properties.userName} />
+
+      {/*
       <div id="hint">
         <p>
           HINT GOES HERE
@@ -33,13 +40,13 @@ export function Play() {
       </div>
 
       <div id="api">
-        <p>Fun Facts About the Number You Guessed http://numbersapi.com/</p>
+        <p>{fact} Fun facts about the number you guessed here: http://numbersapi.com/</p>
       </div>
 
       <div id="websocket">
         <p>WEBSOCKET DATA GOES IN HERE SOMEWHERE?</p>
       </div>
-
+      */}
     </main>
   );
 }

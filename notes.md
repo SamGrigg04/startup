@@ -10,4 +10,4 @@ REACT Part 2 TODO:
 - [x] Set the styling for hint to change based on what it is
 - [ ] Notification of other player activity (setInterval)
 - [ ] Update the scoreboard upon a game ending
-- [ ] Make another scoreboard so one shows local and one global, animate a transition
+- [x] Make another scoreboard so one shows local and one global, animate a transition

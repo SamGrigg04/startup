@@ -16,72 +16,33 @@ Updates the hint for the user
 
 export function NumbrGame(props) {
   const userName = props.userName;
+  const [target, setTarget] = React.useState(() => getRandomInt()); // Sets the number the player will be guessing and saves it as target
+  const [guess, setGuess] = React.useState(""); // Initialized the guess variable to be empty and the function to update the guess as setGuess()
+  const [hint, setHint] = React.useState(""); // Initializes the hint to be empty and declares the function to update the hint as setHint()
+  const [time, setTime] = React.useState(0); // Sets the time at zero and the function to change that as setTime()
+  const [isCorrect, setIsCorrect] = React.useState(false); // They start as incorrect. We can change that with the setIsCorrect() function
 
-  const [allowPlayer, setAllowPlayer] = React.useState(false);
-
+  const timerRef = useRef(null);
+  const startedRec = useRef(false);
   async function onPressed(buttonPosition) {
-    if (allowPlayer) {
-      setAllowPlayer(false);
-      await buttons.get(buttonPosition).ref.current.press();
-
-      if (sequence[playbackPos].position === buttonPosition) {
-        if (playbackPos + 1 === sequence.length) {
-          setPlaybackPos(0);
-          increaseSequence(sequence);
-        } else {
-          setPlaybackPos(playbackPos + 1);
-          setAllowPlayer(true);
-        }
-      } else {
-        saveScore(sequence.length - 1);
-        mistakeSound.play();
-        await buttonDance();
-      }
-    }
+    
   }
 
   async function reset() {
-    setAllowPlayer(false);
-    setPlaybackPos(0);
-    await buttonDance(1);
-    increaseSequence([]);
+    setGuess("");
+    setHint("");
+    setTime(0);
+    setIsCorrect(false);
 
     // Let other players know a new game has started
     GameNotifier.broadcastEvent(userName, GameEvent.Start, {});
   }
 
-  function increaseSequence(previousSequence) {
-    const newSequence = [...previousSequence, getRandomButton()];
-    setSequence(newSequence);
-  }
-
-  // Demonstrates updating state objects based on changes to other state.
-  // All setState calls are asynchronous and so you need to wait until
-  // that state is updated before you can update dependent functionality.
-//   React.useEffect(() => {
-//     if (sequence.length > 0) {
-//       const playSequence = async () => {
-//         await delay(500);
-//         for (const btn of sequence) {
-//           await btn.ref.current.press();
-//         }
-//         setAllowPlayer(true);
-//       };
-//       playSequence();
-//     }
-//   }, [sequence]);
-
-//   async function buttonDance(laps = 5) {
-//     for (let step = 0; step < laps; step++) {
-//       for (const btn of buttons.values()) {
-//         await btn.ref.current.press(100, false);
-//       }
-//     }
-//   }
-
-  function getRandomButton() {
-    let b = Array.from(buttons.values());
-    return b[Math.floor(Math.random() * b.length)];
+  // Returns a random integer between 1 and 1000
+  function getRandomInt() {
+    min = 1;
+    max = 1000;
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
   async function saveScore(score) {

@@ -1,0 +1,12 @@
+#hint.higher {
+    color: blue;
+}
+
+#hint.lower {
+  color: red;
+}
+
+#hint.correct {
+  color: green;
+  font-weight: bold;
+}

@@ -8,54 +8,77 @@ export function Scores(props) {
   const [globalScores, setGlobalScores] = React.useState([]); // Scores for the global leaderboard
   const [showGlobal, setShowGlobal] = React.useState(false); // So you can switch between leaderboards
 
+  // Initialize the local leaderboard
+  React.useEffect(() => {
+    const scoresText = localStorage.getItem('scores');
+    if (scoresText) {
+      setLocalScores(JSON.parse(scoresText));
+    }
+  }, []);
+
+  // Update the local leaderboard upon a game ending
+  React.useEffect(() => {
+    function handleEvent(event) {
+      if (event.type === GameEvent.End) { // when a game ends
+        setGlobalScores(prev =>
+          insertScore(prev, event.value)
+        );
+      }
+    }
+
+    GameNotifier.addHandler(handleEvent);
+    return () => GameNotifier.removeHandler(handleEvent);
+  }, []);
+
+  // Switch between global and local every 5 seconds
+  React.useEffect(() => {
+    const id = setInterval(() => {
+      setShowGlobal(prev => !prev);
+    }, 5000);
+
+    return () => clearInterval(id);
+  }, []);
+
+  // This makes the leaderboard procedurally otherwise there would be a *ton* of
+  // duplicated code (trust me, I speak from experience)
+  function LeaderboardTable({ scores }) {
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Place</th>
+            <th>Name</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Array.from({ length: 10 }).map((_, i) => (
+            <tr key={i}>
+              <td>{i + 1}</td>
+              <td>{scores[i]?.userName ?? "--"}</td>
+              <td>{scores[i]?.time ?? "--"}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+
 
   return (
     <main>
       <h1 className="page-title">How do you measure up, {userName}?</h1>
       <div id="leaderboard">
-        <table>
-          <thead>
-            <tr>
-              <th>Place</th>
-              <th>Name</th>
-              <th>Time</th>
-            </tr>
-          </thead>
+        {/* This is neat, it changes the class name to hidden or visible based on the showGlobal variable */}
+        <div className={`board ${showGlobal ? "hidden" : "visible"}`}>
+          <h2>Personal Best</h2>
+          <LeaderboardTable scores={localScores} />
+        </div>
 
-          <tbody>
-            {/* does it exist? If so, display it. If not, display the specified string */}
-            <tr>
-              <td><img src="first.png" alt="first" id="medal" /></td><td>{localScores[0]?.userName ?? "--"}</td><td>{localScores[0]?.time ?? "--"}</td>
-            </tr>
-            <tr>
-              <td><img src="second.png" alt="second" id="medal" /></td><td>{localScores[1]?.userName ?? "--"}</td><td>{localScores[1]?.time ?? "--"}</td>
-            </tr>
-            <tr>
-              <td><img src="third.png" alt="third" id="medal" /></td><td>{localScores[2]?.userName ?? "--"}</td><td>{localScores[2]?.time ?? "--"}</td>
-            </tr>
-            <tr>
-              <td>4th</td><td>{localScores[3]?.userName ?? "--"}</td><td>{localScores[3]?.time ?? "--"}</td>
-            </tr>
-            <tr>
-              <td>5th</td><td>{localScores[4]?.userName ?? "--"}</td><td>{localScores[4]?.time ?? "--"}</td>
-            </tr>
-            <tr>
-              <td>6th</td><td>{localScores[5]?.userName ?? "--"}</td><td>{localScores[5]?.time ?? "--"}</td>
-            </tr>
-            <tr>
-              <td>7th</td><td>{localScores[6]?.userName ?? "--"}</td><td>{localScores[6]?.time ?? "--"}</td>
-            </tr>
-            <tr>
-              <td>8th</td><td>{localScores[7]?.userName ?? "--"}</td><td>{localScores[7]?.time ?? "--"}</td>
-            </tr>
-            <tr>
-              <td>9th</td><td>{localScores[8]?.userName ?? "--"}</td><td>{localScores[8]?.time ?? "--"}</td>
-            </tr>
-            <tr>
-              <td>10th</td><td>{localScores[9]?.userName ?? "--"}</td><td>{localScores[9]?.time ?? "--"}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div className={`board ${showGlobal ? "visible" : "hidden"}`}>
+          <h2>Global Leaderboard</h2>
+          <LeaderboardTable scores={globalScores} />
+        </div>
       </div>
     </main>
   );

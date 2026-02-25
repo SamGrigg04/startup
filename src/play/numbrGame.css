@@ -1,8 +1,8 @@
 .game {
-  display: flex;
-  flex-direction: column; /* stack children vertically */
-  justify-content: center; /* vertical centering */
-  align-items: center;    /* horizontal centering */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #hint, #api, #websocket {
@@ -31,12 +31,12 @@
 }
 
 #hint.lower {
-  color: rgb(156, 0, 0);
+    color: rgb(156, 0, 0);
 }
 
 #hint.correct {
-  color: rgb(246, 255, 163);
-  font-weight: bold;
+    color: rgb(246, 255, 163);
+    font-weight: bold;
 }
 
 div {
@@ -58,7 +58,6 @@ main form {
     align-self: center;
     justify-items: center;
     border-style: solid;
-    /* max-width: min-content; */
     background-color: rgb(90, 160, 90);
 }
 

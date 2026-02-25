@@ -112,9 +112,9 @@ export function NumbrGame(props) {
 
         <div id="hint" className={hint}> {/* This is neat, it lets us change the styling based on what the hint is */}
             <p>
-            {/* Display different things depending on whether the answer is correct, higher, or lower */}
-            {/* Seriously React, get a handle on your weird syntax */}
-            {isCorrect ? `Congratulations, ${lastGuess} is correct!` : hint ? `The answer is ${hint} than ${lastGuess}!` : "Make a guess..."} 
+              {/* Display different things depending on whether the answer is correct, higher, or lower */}
+              {/* Seriously React, get a handle on your weird syntax */}
+              {isCorrect ? `Congratulations, ${lastGuess} is correct!` : hint ? `The answer is ${hint} than ${lastGuess}!` : "Make a guess..."} 
             </p>
         </div>
 

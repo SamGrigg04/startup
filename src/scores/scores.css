@@ -2,6 +2,26 @@
     display: flex;
     justify-content: center;
     margin: 1%;
+    position: relative;
+}
+
+
+.board {
+    position: absolute;
+    width: 100%;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
 }
 
 table {

@@ -24,6 +24,16 @@ export function NumbrGame(props) {
 
   const {time, startTimer, stopTimer} = useTimer(); // Get all the time stuff from the timer.jsx
 
+  const minutes = Math.floor(time / 60000);
+  const seconds = Math.floor((time % 60000) / 1000); // since they're stored as miliseconds
+  const milliseconds = Math.floor((time % 1000) / 10); // two digit display
+
+  // even if they are only one digit, it will display as 2 with 0 as a placeholder
+  const minutesStr = String(minutes).padStart(2, "0")
+  const secondsStr = String(seconds).padStart(2, "0")
+  const millisecondsStr = String(milliseconds).padStart(2, "0")
+  const timeStr = `${minutesStr}:${secondsStr}:${millisecondsStr}`
+
   // Returns a random integer between 1 and 1000
   function getRandomInt() {
     const min = 1;
@@ -38,9 +48,6 @@ export function NumbrGame(props) {
     setLastGuess(num); // for UI stuff
     startTimer();
 
-    // Let other players know a new game has started
-    GameNotifier.broadcastEvent(userName, GameEvent.Start, {});
-
     // Logic for the dynamic hint
     if (num < target) {
       setHint("higher");
@@ -50,6 +57,10 @@ export function NumbrGame(props) {
       setHint("correct");
       setIsCorrect(true); // Also disables the button so they can't keep guessing
       stopTimer()
+
+      // Let other players know a new game has started
+      GameNotifier.broadcastEvent(userName, GameEvent.End, {userName, timeStr, number:target});
+
       // Saves the result to local storage as a string and updates the leaderboard
       updateScoresLocal({
         userName,
@@ -74,14 +85,16 @@ export function NumbrGame(props) {
     let found = false;
     for (const [i, prevScore] of scores.entries()) { // what a weird loop syntax. c'mon react
       if (newScore.time < prevScore.time) {
+        newScore.time = timeStr;
         scores.splice(i, 0, newScore);
-        // found = true;
+        found = true;
         break;
       }
     }
 
     // if the new score is the lowest, add it anyways
     if (!found) {
+      newScore.time = `${minutesStr}:${secondsStr}:${millisecondsStr}`;
       scores.push(newScore);
     }
 
@@ -89,18 +102,9 @@ export function NumbrGame(props) {
     if (scores.length > 10) {
       scores.length = 10;
     }
-
+    
     localStorage.setItem('scores', JSON.stringify(scores));
   }
-
-  const minutes = Math.floor(time / 60000);
-  const seconds = Math.floor((time % 60000) / 1000); // since they're stored as miliseconds
-  const milliseconds = Math.floor((time % 1000) / 10); // two digit display
-
-  // even if they are only one digit, it will display as 2 with 0 as a placeholder
-  const minutesStr = String(minutes).padStart(2, "0")
-  const secondsStr = String(seconds).padStart(2, "0")
-  const millisecondsStr = String(milliseconds).padStart(2, "0")
 
   return (
     <div className='game'>
@@ -137,7 +141,8 @@ export function NumbrGame(props) {
                   id="guess-btn"
                   onClick={handleGuess}
                  >
-                  GUESS
+                  {/* TODO: REMOVE BEFORE DEPLOYMENT */}
+                  GUESS {target}
                 </Button>
             </div>
         </form>

@@ -1,28 +1,42 @@
-#leaderboard, #database {
-    display: flex;
-    justify-content: center;
-    margin: 1%;
-    position: relative;
+* {
+    box-sizing: border-box;
 }
 
+#leaderboard{
+    position: relative;
+    margin: 0 auto;
+}
 
+/* Now with animations! */
 .board {
     position: absolute;
-    width: 100%;
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    transition: opacity 0.8s ease, transform 2s ease;
+    min-width: fit-content;
+}
+
+.board h2 {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
     pointer-events: auto;
 }
 
 .hidden {
     opacity: 0;
-    transform: translateY(20px);
-    pointer-events: none;
+    transform: translateX(20px);
+    pointer-events: none; /* So you can't highlight it when it isn't there */
 }
+
 
 table {
     border-collapse: collapse;

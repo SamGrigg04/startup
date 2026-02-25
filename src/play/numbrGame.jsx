@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Button } from 'react-bootstrap';
 import { GameEvent, GameNotifier } from './gameNotifier';
-import {} from './APIcall';
-import {} from './guessButton';
+// import {} from './APIcall';
+// import {} from './guessButton';
 import './numbrGame.css';
 
 /*
@@ -22,19 +22,19 @@ export function NumbrGame(props) {
   const [time, setTime] = React.useState(0); // Sets the time at zero and the function to change that as setTime()
   const [isCorrect, setIsCorrect] = React.useState(false); // They start as incorrect. We can change that with the setIsCorrect() function
 
-  const timerRef = useRef(null); // This is a reference to the running timer. It allows us to start and stop the timer
-  const startedRef = useRef(false); // This makes it so only the first guess starts the timer
-  const timestamp = useRef(null); // Stores the current system time
+  const timerRef = React.useRef(null); // This is a reference to the running timer. It allows us to start and stop the timer
+  const startedRef = React.useRef(false); // This makes it so only the first guess starts the timer
+  const timestamp = React.useRef(null); // Stores the current system time
 
   // Resets the interval (timer) when they leave the page
-  useEffect(() => {
+  React.useEffect(() => {
     return () => clearInterval(timerRef.current);
   }, []);
 
   // Returns a random integer between 1 and 1000
   function getRandomInt() {
-    min = 1;
-    max = 1000;
+    const min = 1;
+    const max = 1000;
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
@@ -112,9 +112,18 @@ export function NumbrGame(props) {
     localStorage.setItem('scores', JSON.stringify(scores));
   }
 
+  const minutes = Math.floor(time / 60000);
+  const seconds = Math.floor((time % 60000) / 1000); // since they're stored as miliseconds
+  const milliseconds = Math.floor((time % 1000) / 10); // two digit display
+
+  // even if they are only one digit, it will display as 2 with 0 as a placeholder
+  const minutesStr = String(minutes).padStart(2, "0")
+  const secondsStr = String(seconds).padStart(2, "0")
+  const millisecondsStr = String(milliseconds).padStart(2, "0")
+
   return (
     <div className='game'>
-        <h1 class="page-title">Welcome, {userName}!</h1> 
+        <h1 className="page-title">Welcome, {userName}!</h1> 
 
         <div id="hint" className={hint}> {/* This is neat, it lets us change the styling based on what the hint is */}
             <p>
@@ -135,7 +144,7 @@ export function NumbrGame(props) {
 
             <div>
                 <Button 
-                  class="btn btn-primary" 
+                  className="btn btn-primary" 
                   variant="primary"
                   id="guess-btn"
                   onClick={handleGuess}
@@ -148,17 +157,17 @@ export function NumbrGame(props) {
         <div id="timer">
             <h3>Your Time</h3>
             <div id="time">
-                <span class="digit" id="min">00</span>
-                <span class="txt">Min</span>
-                <span class="digit" id="sec">00</span>
-                <span class="txt">Sec</span>
-                <span class="digit" id="mil">00</span>
-                <span class="txt">Mil</span>
+                <span className="digit" id="min">{minutesStr}</span>
+                <span className="txt">Min</span>
+                <span className="digit" id="sec">{secondsStr}</span>
+                <span className="txt">Sec</span>
+                <span className="digit" id="mil">{millisecondsStr}</span>
+                <span className="txt">Mil</span>
             </div>
         </div>
 
         <div id="api">
-            <p>{fact} Fun facts about the number you guessed here: http://numbersapi.com/</p>
+            {/* <p>{fact} Fun facts about the number you guessed here: http://numbersapi.com/</p> */}
         </div>
 
         <div id="websocket">

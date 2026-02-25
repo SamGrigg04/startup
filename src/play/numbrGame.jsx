@@ -1,11 +1,10 @@
 import React from 'react';
 
 import { Button } from 'react-bootstrap';
-// import { delay } from './delay';
 import { GameEvent, GameNotifier } from './gameNotifier';
-import {} from './Hint';
+import {} from './hint';
 import {} from './APIcall';
-import {} from './GuessButton';
+import {} from './guessButton';
 
 /*
 Makes the game functional.
@@ -15,7 +14,7 @@ Returns a value for the username display
 Updates the hint for the user
 */
 
-export function SimonGame(props) {
+export function NumbrGame(props) {
   const userName = props.userName;
 
   const [allowPlayer, setAllowPlayer] = React.useState(false);
@@ -134,18 +133,43 @@ export function SimonGame(props) {
 
   return (
     <div className='game'>
-      <div className='button-container'>
-        <>{buttonArray}</>
-        <div className='controls center'>
-          <div className='game-name'>
-            Simon<sup>&reg;</sup>
-          </div>
-          <div className='score center'>{sequence.length === 0 ? '--' : sequence.length - 1}</div>
-          <Button variant='primary' onClick={() => reset()}>
-            Reset
-          </Button>
+        <h1 class="page-title">Welcome, {userName}!</h1> 
+
+        <div id="hint">
+            <p>
+            HINT GOES HERE
+            </p>
         </div>
-      </div>
+
+        <form>
+            <div>
+                <input type="number" placeholder="Your guess..." />
+            </div>
+
+            <div>
+                <button class="btn btn-primary" type="submit" id="guess-btn">GUESS</button>
+            </div>
+        </form>
+
+        <div id="timer">
+            <h3>Your Time</h3>
+            <div id="time">
+                <span class="digit" id="min">00</span>
+                <span class="txt">Min</span>
+                <span class="digit" id="sec">00</span>
+                <span class="txt">Sec</span>
+                <span class="digit" id="mil">00</span>
+                <span class="txt">Mil</span>
+            </div>
+        </div>
+
+        <div id="api">
+            <p>{fact} Fun facts about the number you guessed here: http://numbersapi.com/</p>
+        </div>
+
+        <div id="websocket">
+            <p>WEBSOCKET DATA GOES IN HERE SOMEWHERE?</p>
+        </div>
     </div>
   );
 }

@@ -17,13 +17,17 @@ class GameEventNotifier {
   handlers = [];
 
   constructor() {
-    // Simulate chat messages that will eventually come over WebSocket
+    // Simulate scores that will eventually come over WebSocket
     setInterval(() => {
-      // TODO: Change
-      const score = Math.floor(Math.random() * 3000);
-      const date = new Date().toLocaleDateString();
-      const userName = 'Eich';
-      this.broadcastEvent(userName, GameEvent.End, { name: userName, score: score, date: date });
+      const randomMinutes = Math.floor(Math.random() * 5);
+      const randomSeconds = Math.floor(Math.random() * 60);
+      const randomMilliseconds = Math.floor(Math.random() * 100);
+      const timeStr = `${String(randomMinutes).padStart(2,'0')}:${String(randomSeconds).padStart(2,'0')}:${String(randomMilliseconds).padStart(2,'0')}`;
+
+      const users = ['Abe','Babe','Cabe','Dave','Egg'];
+      const userName = users[Math.floor(Math.random() * users.length)];
+
+      this.broadcastEvent(userName, GameEvent.End, { userName, time: timeStr });
     }, 5000);
   }
 

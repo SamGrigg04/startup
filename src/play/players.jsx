@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GameEvent, GameNotifier } from './gameNotifier';
+import { GameEvent, GameNotifier } from '../gameNotifier';
 // import './players.css';
 
 export function Players(props) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import './scores.css';
-import { GameEvent, GameNotifier } from './gameNotifier';
+import { GameEvent, GameNotifier } from '../gameNotifier';
 
 export function Scores(props) {
   const userName = props.userName;
@@ -16,25 +16,27 @@ export function Scores(props) {
     }
   }, []);
 
-  // Update the local leaderboard upon a game ending
+  // Update the global leaderboard upon a game ending
   React.useEffect(() => {
-    function handleEvent(event) {
-      if (event.type === GameEvent.End) { // when a game ends
-        setGlobalScores(prev =>
-          insertScore(prev, event.value)
-        );
+    const handler = (event) => {
+      if (event.type == GameEvent.End) { // When a game ends (we do the broadcast thing in numbrGame.jsx)
+        setGlobalScores(prev => {
+          const newScores = prev.concat(event.value); // add the new score (we can't just update the old array because react won't notice)
+          newScores.sort((a, b) => a.time - b.time); // sort by time (takes two items and comparest the time. lowest goes first)
+          return newScores.slice(0, 10); // keep top 10
+        });
       }
-    }
+    };
 
-    GameNotifier.addHandler(handleEvent);
-    return () => GameNotifier.removeHandler(handleEvent);
+    GameNotifier.addHandler(handler);
+    return () => GameNotifier.removeHandler(handler);
   }, []);
 
-  // Switch between global and local every 5 seconds
+  // Switch between global and local every 10 seconds
   React.useEffect(() => {
     const id = setInterval(() => {
       setShowGlobal(prev => !prev);
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(id);
   }, []);

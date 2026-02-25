@@ -21,6 +21,7 @@ export function NumbrGame(props) {
   const [hint, setHint] = React.useState(""); // Initializes the hint to be empty and declares the function to update the hint as setHint()
   const [time, setTime] = React.useState(0); // Sets the time at zero and the function to change that as setTime()
   const [isCorrect, setIsCorrect] = React.useState(false); // They start as incorrect. We can change that with the setIsCorrect() function
+  const [lastGuess, setLastGuess] = React.useState(""); // Just here for some nice UI stuff
 
   const timerRef = React.useRef(null); // This is a reference to the running timer. It allows us to start and stop the timer
   const startedRef = React.useRef(false); // This makes it so only the first guess starts the timer
@@ -51,9 +52,10 @@ export function NumbrGame(props) {
   };
 
   const handleGuess = () => {
-    const num = Number(guess); // set num to be the user input
-    if (Number.isNaN(num)) return; // if it isn't a number, do nothing. return early
+        const num = Number(guess); // set num to be the user input
+    if (!guess || guess.trim() == "" || Number.isNaN(num)) return; // if there is no guess or it is empty or it is not a number, do nothing. return early
 
+    setLastGuess(num); // for UI stuff
     startTimer();
 
     // Let other players know a new game has started
@@ -65,7 +67,7 @@ export function NumbrGame(props) {
     } else if (num > target) {
       setHint("lower");
     } else {
-      setHint("correct!");
+      setHint("correct");
       setIsCorrect(true); // Also disables the button so they can't keep guessing
       clearInterval(timerRef.current); // Stops the timer
 
@@ -127,12 +129,19 @@ export function NumbrGame(props) {
 
         <div id="hint" className={hint}> {/* This is neat, it lets us change the styling based on what the hint is */}
             <p>
-            {/* If the hint variable is empty, display placeholder text. Otherwise, display 'The answer is [hint]!' */}
-            {hint ? `The answer is ${hint}!` : "Make a guess..."} {/* Seriously React, get a handle on your weird syntax */}
+            {/* Display different things depending on whether the answer is correct, higher, or lower */}
+            {/* Seriously React, get a handle on your weird syntax */}
+            {isCorrect ? `Congratulations, ${lastGuess} is correct!` : hint ? `The answer is ${hint} than ${lastGuess}!` : "Make a guess..."} 
             </p>
         </div>
 
-        <form>
+        <form
+        // Makes it not screw everything up when you hit enter
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleGuess();
+          }}
+        >
             <div>
                 <input 
                 type="number" 

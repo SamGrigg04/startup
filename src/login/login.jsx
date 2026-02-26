@@ -3,35 +3,26 @@ import { AuthState } from '../AuthState';
 import { Authenticated } from './Authenticated';
 import { Unauthenticated } from './Unauthenticated';
 
-export function Login({ userName, authState, onAuthChange }) {
+export function Login({ userName, authState, handleAuthChange }) {
   return (
+  //   <div>
+  //     <h1>LOGIN RENDER TEST</h1>;
+
+  //   </div>
+  // );
     <main>
       <div>
-      {authState !== AuthState.Unknown && <h1 class="page-title">Welcome to NumbrGuessr</h1>}
-      {authState === AuthState.Authenticated && <Authenticated userName={userName} onLogout={() => onAuthChange(userName, AuthState.Unauthenticated)} />}
+      {authState !== AuthState.Unknown && <h1 className="page-title">Welcome to NumbrGuessr</h1>}
+      {authState === AuthState.Authenticated && <Authenticated userName={userName} onLogout={() => handleAuthChange(userName, AuthState.Unauthenticated)} />}
       {authState === AuthState.Unauthenticated && (
           <Unauthenticated
             userName={userName}
             onLogin={(loginUserName) => {
-              onAuthChange(loginUserName, AuthState.Authenticated);
+              handleAuthChange(loginUserName, AuthState.Authenticated);
             }}
           />        
           )}
       </div>
-      {/* <form method="get" action="home.html">
-        <div>
-          <input type="text" placeholder="Username" />
-        </div>
-        <div>
-          <input type="password" placeholder="Password" />
-        </div>
-        <div>
-          <button type="button" class="btn btn-primary" id="login-btn">Login</button>
-        </div>
-        <div>
-          <button type="button" class="btn btn-primary" id="create-acc">Create Account</button>
-        </div>
-      </form> */}
     </main>
   );
 }

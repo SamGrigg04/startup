@@ -11,8 +11,9 @@ import { AuthState } from './AuthState';
 export default function App() {
 
   const storedUser = localStorage.getItem('userName');
-  const [userName, setUserName] = useState(storedUser || '');
-  const [authState, setAuthState] = useState( storedUser ? AuthState.Authenticated : AuthState.Unauthenticated );
+  const [userName, setUserName] = React.useState(storedUser || '');
+  // const [authState, setAuthState] = useState( storedUser ? AuthState.Authenticated : AuthState.Unauthenticated );
+  const [authState, setAuthState] = React.useState(AuthState.Unauthenticated);
 
   function handleAuthChange(userName, newAuthState) {
     setAuthState(newAuthState);

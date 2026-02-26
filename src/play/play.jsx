@@ -1,5 +1,4 @@
 import React from 'react';
-import { Players } from './players';
 import { NumbrGame } from './numbrGame';
 
 

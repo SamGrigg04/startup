@@ -8,6 +8,5 @@ REACT Part 2 TODO:
 - [x] Generate the random number to be guessed upon selecting the text box (so you can't fish through the page and find the variable)
 - [x] Procedurally generate hints (higher/lower)
 - [x] Set the styling for hint to change based on what it is
-- [ ] Notification of other player activity (setInterval)
 - [ ] Update the scoreboard upon a game ending
 - [x] Make another scoreboard so one shows local and one global, animate a transition

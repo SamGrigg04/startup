@@ -32,7 +32,6 @@ export function NumbrGame(props) {
   const minutesStr = String(minutes).padStart(2, "0")
   const secondsStr = String(seconds).padStart(2, "0")
   const millisecondsStr = String(milliseconds).padStart(2, "0")
-  const timeStr = `${minutesStr}:${secondsStr}:${millisecondsStr}`
 
   // Returns a random integer between 1 and 1000
   function getRandomInt() {
@@ -57,15 +56,14 @@ export function NumbrGame(props) {
       setHint("correct");
       setIsCorrect(true); // Also disables the button so they can't keep guessing
       stopTimer()
-
-      // Let other players know a new game has started
-      GameNotifier.broadcastEvent(userName, GameEvent.End, {userName, time: timeStr});
+      
+      const timeStr = `${minutesStr}:${secondsStr}:${millisecondsStr}`;
+      const scoreObj = { userName, time: timeStr };
 
       // Saves the result to local storage as a string and updates the leaderboard
-      updateScoresLocal({
-        userName,
-        time
-      });
+      updateScoresLocal(scoreObj);
+      
+      GameNotifier.broadcastEvent(userName, GameEvent.End, scoreObj);
     }
   };
 
@@ -86,8 +84,8 @@ export function NumbrGame(props) {
 
     // Inserts the new score based off the time
     let found = false;
-    for (const [i, prevScore] of scores.entries()) { // what a weird loop syntax. c'mon react
-      if (timeToMs(newScore.time) < timeToMs(prevScore.time)) {
+    for (let i = 0; i < scores.length; i++) { // what a weird loop syntax. c'mon react
+      if (timeToMs(newScore.time) < timeToMs(scores[i].time)) {
         scores.splice(i, 0, newScore);
         found = true;
         break;

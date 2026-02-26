@@ -1,7 +1,6 @@
 import React from 'react';
 import './scores.css';
 import { GameEvent, GameNotifier } from '../gameNotifier';
-import { NumbrGame } from '../play/numbrGame';
 
 export function Scores(props) {
   const userName = props.userName;
@@ -17,29 +16,27 @@ export function Scores(props) {
     }
   }, []);
 
-  // Update local scores when a new game finishes
-  const addLocalScore = (newScore) => {
-    setLocalScores(prev => {
-      const newScores = [...prev, newScore];
-      newScores.sort((a,b) => timeToMs(a.time) - timeToMs(b.time));
-      return newScores.slice(0, 10);
-    });
-  };
-
   // convert time from a string to milliseconds for comparison in a sec
   function timeToMs(timeStr) {
     const [min, sec, mil] = timeStr.split(':').map(Number);
     return min * 60000 + sec * 1000 + mil * 10;
   }
 
-  // Update the global leaderboard upon a game ending
+  // Update the global and local leaderboard upon a game ending
   React.useEffect(() => {
     const handler = (event) => {
       if (event.type == GameEvent.End) { // When a game ends (we do the broadcast thing in numbrGame.jsx)
+        // Update global
         setGlobalScores(prev => {
           const newScores = [...prev, event.value]; // add the new score (we can't just update the old array because react won't notice so there is this weird syntax)
           newScores.sort((a, b) => timeToMs(a.time) - timeToMs(b.time)); // sort by time (takes two items and comparest the time. lowest goes first)
           return newScores.slice(0, 10); // keep top 10
+        });
+        // Update local
+        setLocalScores(prev => {
+          const newScores = [...prev, event.value];
+          newScores.sort((a,b) => timeToMs(a.time) - timeToMs(b.time));
+          return newScores.slice(0, 10);
         });
       }
     };
@@ -118,7 +115,7 @@ export function Scores(props) {
         <div className={`board ${showGlobal ? "visible" : "hidden"}`}>
           <h2>Global Leaderboard</h2>
           <LeaderboardTable scores={globalScores} />
-            <p>eventually this will read from a database, but for now it resets every time the page reloads</p>
+          <p>eventually this will read from a database, but for now it resets every time the page reloads</p>
         </div>
       </div>
     </main>

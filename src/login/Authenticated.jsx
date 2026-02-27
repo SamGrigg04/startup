@@ -1,8 +1,10 @@
+import './Authenticated.css';
+
 export function Authenticated({ userName, onLogout }) {
   return (
-    <div>
+    <div className="authenticated">
       <p>Logged in as {userName}</p>
-      <button className="btn btn-primary" onClick={onLogout}>
+      <button className="btn btn-primary" id="logout" onClick={onLogout}>
         Logout
       </button>
     </div>

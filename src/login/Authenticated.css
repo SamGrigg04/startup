@@ -1,0 +1,31 @@
+.authenticated {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.authenticated p {
+  font-size: 18px;
+  margin: 0;
+}
+
+/* match navbar style */
+#logout {
+  background-color: rgba(50, 50, 160, 0.75);
+  border-style: solid;
+  border-color: rgb(255, 255, 255);
+  border-radius: 10%;
+  border-width: 3px;
+  font-size: 16px;
+  padding: 10px 30px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+#logout-btn:hover {
+  background-color: rgb(40, 40, 130);
+}

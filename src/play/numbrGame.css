@@ -5,8 +5,7 @@
     align-items: center;
 }
 
-#hint, #api, #websocket {
-    display: flex;
+#hint, #api {
     justify-self: center;
     align-self: center;
     align-items: center;
@@ -18,6 +17,7 @@
 }
 
 #hint {
+    display: flex;
     background-color: rgb(111, 211, 111);
     padding: 5px;
 }

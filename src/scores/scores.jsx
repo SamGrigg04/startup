@@ -112,7 +112,7 @@ export function Scores(props) {
     const interval = setInterval(() => {
       const score = fakeScore();
       GameNotifier.broadcastEvent(score.userName, GameEvent.End, score);
-    }, 5000); // every 5 seconds just for testing TODO: Change interval
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);

@@ -6,13 +6,6 @@ import { useTimer } from './timer'
 import { APIcall } from './APIcall';
 import './numbrGame.css';
 
-/*
-Makes the game functional.
-Contains the logic for the input and button press
-Makes the API call for the hint work
-Returns a value for the username display
-Updates the hint for the user
-*/
 
 export function NumbrGame(props) {
   const userName = props.userName;
@@ -140,8 +133,7 @@ export function NumbrGame(props) {
                   id="guess-btn"
                   onClick={handleGuess}
                  >
-                  {/* TODO: REMOVE BEFORE DEPLOYMENT */}
-                  GUESS {target}
+                  GUESS
                 </Button>
             </div>
         </form>
@@ -160,10 +152,6 @@ export function NumbrGame(props) {
 
         <div id="api">
             <APIcall number={lastGuess}></APIcall>
-        </div>
-
-        <div id="websocket">
-            <p>WEBSOCKET DATA GOES IN HERE SOMEWHERE?</p>
         </div>
     </div>
   );

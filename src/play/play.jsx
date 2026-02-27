@@ -6,7 +6,6 @@ export function Play(properties) {
   return (
     <main>
       <NumbrGame userName={properties.userName} />
-      {/* <Players userName={properties.userName} /> */}
     </main>
   );
 }

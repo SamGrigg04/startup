@@ -29,21 +29,15 @@ export function Scores(props) {
     return min * 60000 + sec * 1000 + mil * 10;
   }
 
-  // Update the global and local leaderboard upon a game ending
+  // Update the global leaderboard upon a game ending
   React.useEffect(() => {
     const handler = (event) => {
-      if (event.type == GameEvent.End) { // When a game ends (we do the broadcast thing in numbrGame.jsx)
+      if (event.type == GameEvent.End) { // When a game ends
         // Update global
         setGlobalScores(prev => {
           const newScores = [...prev, event.value]; // add the new score (we can't just update the old array because react won't notice so there is this weird syntax)
           newScores.sort((a, b) => timeToMs(a.time) - timeToMs(b.time)); // sort by time (takes two items and comparest the time. lowest goes first)
           return newScores.slice(0, 10); // keep top 10
-        });
-        // Update local
-        setLocalScores(prev => {
-          const newScores = [...prev, event.value];
-          newScores.sort((a,b) => timeToMs(a.time) - timeToMs(b.time));
-          return newScores.slice(0, 10);
         });
       }
     };

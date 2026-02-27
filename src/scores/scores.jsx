@@ -18,7 +18,14 @@ export function Scores(props) {
 
   // convert time from a string to milliseconds for comparison in a sec
   function timeToMs(timeStr) {
-    const [min, sec, mil] = timeStr.split(':').map(Number);
+    if (!timeStr || typeof timeStr != 'string') {
+      return;
+    } // Don't break if it doesn't exist or isn't a string
+    const parts = timeStr.split(':').map(Number);
+    if (parts.length != 3 || parts.some(isNaN)) {
+      return; // Don't break if the format is invalid
+    }
+    const [min, sec, mil] = parts;
     return min * 60000 + sec * 1000 + mil * 10;
   }
 

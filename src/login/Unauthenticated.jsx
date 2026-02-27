@@ -1,30 +1,44 @@
 import React from 'react';
+import './Unauthenticated.css';
 
 export function Unauthenticated({ onLogin }) {
   const [name, setName] = React.useState('');
   const [password, setPassword] = React.useState('');
 
   return (
-    <div>
+    <div className="unauthenticated">
       <input
         type="text"
         placeholder="Username"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        className="input"
       />
       <input
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        className="input"
       />
-      <button
-        className="btn btn-primary"
-        onClick={() => onLogin(name)}
-        disabled={!name || !password}
-      >
-        Login
-      </button>
+      <div>
+        <button
+          className="btn btn-primary "
+          id="login"
+          onClick={() => onLogin(name)}
+          disabled={!name || !password}
+        >
+          Login
+        </button>
+        <button
+          className="btn btn-primary"
+          id="logout"
+          onClick={() => onLogin(name)}
+          disabled={!name || !password}
+        >
+          Create
+        </button>
+      </div>
     </div>
   );
 }

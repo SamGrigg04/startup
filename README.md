@@ -90,8 +90,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - It all works and I even added some new stuff. Global scores are spoofed as well as API calls, but that is to be expected.
+- [x] **Hooks** - Yep they're in there. Everywhere.
 
 ## 🚀 Service deliverable
 

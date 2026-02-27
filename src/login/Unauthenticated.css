@@ -15,3 +15,34 @@
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+/* Button container */
+.unauthenticated > div {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+/* match navbar style */
+#login, #logout {
+  flex: 1;
+  background-color: rgba(50, 50, 160, 0.75);
+  border-style: solid;
+  border-color: rgb(255, 255, 255);
+  border-radius: 10%;
+  border-width: 3px;
+  font-size: 16px;
+  padding: 10px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+#login:hover, #logout:hover {
+  background-color: rgb(40, 40, 130);
+}
+
+#login:disabled, #logout:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+

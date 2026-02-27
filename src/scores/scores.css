@@ -5,11 +5,13 @@
 #leaderboard{
     position: relative;
     margin: 0 auto;
+    min-height: 400px;
 }
 
 /* Now with animations! */
 .board {
     position: absolute;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;

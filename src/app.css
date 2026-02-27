@@ -98,8 +98,8 @@ main {
     justify-content: center;
     padding: 1.5%;
     margin-top: 5px;
-    max-width: fit-content;
-    align-self: center;
+    width: 100%;
+    align-items: center;
 }
 
 #login-btn, #create-acc, #guess-btn {

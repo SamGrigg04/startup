@@ -57,6 +57,20 @@ export function Scores(props) {
   // This makes the leaderboard procedurally otherwise there would be a *ton* of
   // duplicated code (trust me, I speak from experience)
   function LeaderboardTable({ scores }) {
+    function getPlaceDisplay(place) {
+      // place is 1-indexed (1, 2, 3, etc.)
+      if (place == 1) {
+        return <img src="first.png" alt="1st place" style={{ height: '30px' }} />;
+      }
+      if (place == 2) {
+        return <img src="second.png" alt="2nd place" style={{ height: '30px' }} />;
+      }
+      if (place == 3) {
+        return <img src="third.png" alt="3rd place" style={{ height: '30px' }} />;
+      }
+      return place;
+    }
+
     return (
       <table>
         <thead>
@@ -69,7 +83,7 @@ export function Scores(props) {
         <tbody>
           {Array.from({ length: 10 }).map((_, i) => (
             <tr key={i}>
-              <td>{i + 1}</td>
+              <td>{getPlaceDisplay(i + 1)}</td>
               <td>{scores[i]?.userName ?? "--"}</td>
               <td>{scores[i]?.time ?? "--"}</td>
             </tr>

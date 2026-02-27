@@ -12,8 +12,7 @@ export default function App() {
 
   const storedUser = localStorage.getItem('userName');
   const [userName, setUserName] = React.useState(storedUser || '');
-  // const [authState, setAuthState] = useState( storedUser ? AuthState.Authenticated : AuthState.Unauthenticated );
-  const [authState, setAuthState] = React.useState(AuthState.Unauthenticated);
+  const [authState, setAuthState] = React.useState( storedUser ? AuthState.Authenticated : AuthState.Unauthenticated );
 
   function handleAuthChange(userName, newAuthState) {
     setAuthState(newAuthState);
@@ -57,7 +56,7 @@ export default function App() {
             exact 
           />
           <Route path='/play' element={<Play />} />
-          <Route path='/scores' element={<Scores />} />
+          <Route path='/scores' element={<Scores userName={userName} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
 

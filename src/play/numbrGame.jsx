@@ -60,11 +60,6 @@ export function NumbrGame(props) {
     }
   };
 
-    function timeToMs(timeStr) {
-      const [min, sec, mil] = timeStr.split(':').map(Number);
-      return min * 60000 + sec * 1000 + mil * 10;
-    }
-
   // Updates the leaderboard
   async function updateScoresLocal(newScore) {
 
@@ -110,7 +105,7 @@ export function NumbrGame(props) {
                   id="guess-btn"
                   onClick={handleGuess}
                  >
-                  GUESS
+                  GUESS {target}
                 </Button>
             </div>
         </form>

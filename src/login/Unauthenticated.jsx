@@ -1,8 +1,8 @@
 import React from 'react';
 import './Unauthenticated.css';
 
-export function Unauthenticated(props) {
-  const [userName, setName] = React.useState(props.username);
+export function Unauthenticated({ userName: initialUserName = '', onLogin }) {
+  const [userName, setName] = React.useState(initialUserName ?? '');
   const [password, setPassword] = React.useState('');
 
   async function loginUser() {
@@ -23,7 +23,7 @@ export function Unauthenticated(props) {
     });
     if (response?.status === 200) {
       localStorage.setItem('userName', userName);
-      props.onLogin(userName);
+      onLogin(userName);
     }
   }
 

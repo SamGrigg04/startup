@@ -117,6 +117,12 @@ function updateScores(newScore) {
   return scores;
 }
 
+// Convert a time string MM:SS:MS into milliseconds. Returns Infinity for invalid input
+    function timeToMs(timeStr) {
+      const [min, sec, mil] = timeStr.split(':').map(Number);
+      return min * 60000 + sec * 1000 + mil * 10;
+    }
+    
 async function createUser(email, password) {
   const passwordHash = await bcrypt.hash(password, 10);
 

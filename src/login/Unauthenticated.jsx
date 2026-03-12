@@ -1,8 +1,8 @@
 import React from 'react';
 import './Unauthenticated.css';
 
-export function Unauthenticated({ onLogin }) {
-  const [name, setName] = React.useState('');
+export function Unauthenticated(props) {
+  const [userName, setName] = React.useState(props.username);
   const [password, setPassword] = React.useState('');
 
   async function loginUser() {
@@ -32,7 +32,7 @@ export function Unauthenticated({ onLogin }) {
       <input
         type="text"
         placeholder="Username"
-        value={name}
+        value={userName}
         onChange={(e) => setName(e.target.value)}
         className="input"
       />
@@ -48,7 +48,7 @@ export function Unauthenticated({ onLogin }) {
           className="btn btn-primary "
           id="login"
           onClick={() => loginUser()}
-          disabled={!name || !password}
+          disabled={!userName || !password}
         >
           Login
         </button>
@@ -56,7 +56,7 @@ export function Unauthenticated({ onLogin }) {
           className="btn btn-primary"
           id="create"
           onClick={() => createUser()}
-          disabled={!name || !password}
+          disabled={!userName || !password}
         >
           Create
         </button>

@@ -1,16 +1,21 @@
 import React from 'react'
 
 export function APIcall({ number }) {
-  const [fact, setFact] = React.useState('Loading...');
+  const [fact, setFact] = React.useState('');
 
   React.useEffect(() => {
-    if (number == "") return;
+    setFact('Loading...');
     fetch(`http://numbersapi.com/${number}`)
-    .then((response) => response.json())
-    .then((data) => {
-      setFact(data);
-    })
-    .catch();
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
+      })
+    .then((data) => 
+      setFact(data && data.text ? data.text : JSON.stringify(data)))
+    .catch((err) => {
+      console.error('APIcall error:', err);
+      setFact('Could not load fact');
+    });
   }, [number]); // runs every time number changes
 
   return (

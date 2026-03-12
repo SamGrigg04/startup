@@ -97,12 +97,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
+- [x] **Node.js/Express HTTP service** - Installed all the dependencies for the frontend, added the code to implement them in index.jsx
+- [x] **Static middleware for frontend** - Implemented for authenticating endpoint calls, parsing json, and tracking auth tokens
+- [ ] **Calls to third party endpoints** - Displays fun facts about the number guessed
+- [ ] **Backend service endpoints** - Beckend provides the endpoints for the frontend to call
+- [ ] **Frontend calls service endpoints** - Frontend calls the endpoints to do various useful things.
+- [ ] **Supports registration, login, logout, and restricted endpoint** - Yep, all those are in there. And they work too!
 
 ## 🚀 DB deliverable
 

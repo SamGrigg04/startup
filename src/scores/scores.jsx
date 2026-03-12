@@ -14,6 +14,9 @@ export function Scores(props) {
       .then((response) => response.json())
       .then((scores) => {
         setLocalScores(scores);
+      })
+      .catch((err) => {
+          console.error('Failed to load local scores:', err);
       });
   }, []);
 

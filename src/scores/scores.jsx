@@ -3,14 +3,14 @@ import './scores.css';
 import { GameEvent, GameNotifier } from '../gameNotifier';
 
 export function Scores(props) {
-  const userName = props.userName;
+  const name = props.name;
   const [localScores, setLocalScores] = React.useState([]); // Scores for the local leaderboard
   const [globalScores, setGlobalScores] = React.useState([]); // Scores for the global leaderboard
   const [showGlobal, setShowGlobal] = React.useState(false); // So you can switch between leaderboards
 
   // Initialize the local leaderboard
     React.useEffect(() => {
-    fetch('/api/scores')
+    fetch('/api/scores', { credentials: 'include' })
       .then((response) => response.json())
       .then((scores) => {
         setLocalScores(scores);
@@ -89,7 +89,7 @@ export function Scores(props) {
           {Array.from({ length: 10 }).map((_, i) => (
             <tr key={i}>
               <td>{getPlaceDisplay(i + 1)}</td>
-              <td>{scores[i]?.userName ?? "--"}</td>
+              <td>{scores[i]?.name ?? "--"}</td>
               <td>{scores[i]?.time ?? "--"}</td>
             </tr>
           ))}
@@ -106,16 +106,16 @@ export function Scores(props) {
     const timeStr = `${String(randomMinutes).padStart(2, '0')}:${String(randomSeconds).padStart(2,'0')}:${String(randomMilliseconds).padStart(2,'0')}`;
 
     const users = ['Abe', 'Babe', 'Cabe', 'Dave', 'Egg'];
-    const userName = users[Math.floor(Math.random() * users.length)];
+    const name = users[Math.floor(Math.random() * users.length)];
 
-  return { userName, time: timeStr};
+  return { name, time: timeStr};
 }
 
   // Display the fake scores at an interval
   React.useEffect(() => {
     const interval = setInterval(() => {
       const score = fakeScore();
-      GameNotifier.broadcastEvent(score.userName, GameEvent.End, score);
+      GameNotifier.broadcastEvent(score.name, GameEvent.End, score);
     }, 5000);
 
     return () => clearInterval(interval);
@@ -123,7 +123,7 @@ export function Scores(props) {
 
   return (
     <main>
-      <h1 className="page-title">How do you measure up, {userName}?</h1>
+      <h1 className="page-title">How do you measure up, {name}?</h1>
       <div id="leaderboard">
         {/* This is neat, it changes the class name to hidden or visible based on the showGlobal variable */}
         <div className={`board ${showGlobal ? "hidden" : "visible"}`}>

@@ -1,8 +1,8 @@
 import React from 'react';
 import './Unauthenticated.css';
 
-export function Unauthenticated({ userName: initialUserName = '', onLogin }) {
-  const [userName, setName] = React.useState(initialUserName ?? '');
+export function Unauthenticated({ name: initialName = '', onLogin }) {
+  const [name, setName] = React.useState(initialName ?? '');
   const [password, setPassword] = React.useState('');
 
   async function loginUser() {
@@ -16,14 +16,15 @@ export function Unauthenticated({ userName: initialUserName = '', onLogin }) {
   async function loginOrCreate(endpoint) {
     const response = await fetch(endpoint, {
       method: 'post',
-      body: JSON.stringify({ email: userName, password: password }),
+      credentials: 'include',
+      body: JSON.stringify({ email: name, password: password }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
     });
     if (response?.status === 200) {
-      localStorage.setItem('userName', userName);
-      onLogin(userName);
+      localStorage.setItem('name', name);
+      onLogin(name);
     }
   }
 
@@ -32,7 +33,7 @@ export function Unauthenticated({ userName: initialUserName = '', onLogin }) {
       <input
         type="text"
         placeholder="Username"
-        value={userName}
+        value={name}
         onChange={(e) => setName(e.target.value)}
         className="input"
       />
@@ -48,15 +49,15 @@ export function Unauthenticated({ userName: initialUserName = '', onLogin }) {
           className="btn btn-primary "
           id="login"
           onClick={() => loginUser()}
-          disabled={!userName || !password}
+          disabled={!name || !password}
         >
           Login
         </button>
         <button
           className="btn btn-primary"
           id="create"
-          onClick={() => createUser()}
-          disabled={!userName || !password}
+            onClick={() => createUser()}
+            disabled={!name || !password}
         >
           Create
         </button>

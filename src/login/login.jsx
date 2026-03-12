@@ -4,17 +4,17 @@ import { AuthState } from '../authState';
 import { Authenticated } from './Authenticated';
 import { Unauthenticated } from './Unauthenticated';
 
-export function Login({ userName, authState, onAuthChange }) {
+export function Login({ name, authState, onAuthChange }) {
   return (
     <main>
       <div>
       {authState !== AuthState.Unknown && <h1 className="page-title">Welcome to NumbrGuessr</h1>}
-      {authState === AuthState.Authenticated && <Authenticated userName={userName} onLogout={() => onAuthChange(userName, AuthState.Unauthenticated)} />}
+      {authState === AuthState.Authenticated && <Authenticated name={name} onLogout={() => onAuthChange(name, AuthState.Unauthenticated)} />}
       {authState === AuthState.Unauthenticated && (
           <Unauthenticated
-            userName={userName}
-            onLogin={(loginUserName) => {
-              onAuthChange(loginUserName, AuthState.Authenticated);
+            name={name}
+            onLogin={(loginName) => {
+              onAuthChange(loginName, AuthState.Authenticated);
             }}
           />        
           )}

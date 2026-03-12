@@ -8,7 +8,7 @@ import './numbrGame.css';
 
 
 export function NumbrGame(props) {
-  const userName = props.userName;
+  const name = props.name;
   const [target, setTarget] = React.useState(() => getRandomInt()); // Sets the number the player will be guessing and saves it as target
   const [guess, setGuess] = React.useState(""); // Initialized the guess variable to be empty and the function to update the guess as setGuess()
   const [hint, setHint] = React.useState(""); // Initializes the hint to be empty and declares the function to update the hint as setHint()
@@ -51,12 +51,12 @@ export function NumbrGame(props) {
       stopTimer()
       
       const timeStr = `${minutesStr}:${secondsStr}:${millisecondsStr}`;
-      const scoreObj = { name: userName, time: timeStr };
+      const scoreObj = { name: name, time: timeStr };
 
       // Saves the result to local storage as a string and updates the leaderboard
       updateScoresLocal(scoreObj);
       
-      GameNotifier.broadcastEvent(userName, GameEvent.End, scoreObj);
+      GameNotifier.broadcastEvent(name, GameEvent.End, scoreObj);
     }
   };
 
@@ -65,6 +65,7 @@ export function NumbrGame(props) {
 
     await fetch('/api/score', {
       method: 'POST',
+      credentials: 'include',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(newScore),
     });
@@ -72,7 +73,7 @@ export function NumbrGame(props) {
 
   return (
     <div className='game'>
-        <h1 className="page-title">Welcome, {userName}!</h1> 
+        <h1 className="page-title">Welcome, {name}!</h1> 
 
         <div id="hint" className={hint}> {/* This is neat, it lets us change the styling based on what the hint is */}
             <p>

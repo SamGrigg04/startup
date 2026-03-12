@@ -10,18 +10,18 @@ import { AuthState } from './authState';
 
 export default function App() {
 
-  const storedUser = localStorage.getItem('userName');
-  const [userName, setUserName] = React.useState(storedUser || '');
-  const [authState, setAuthState] = React.useState( storedUser ? AuthState.Authenticated : AuthState.Unauthenticated );
+  const storedName = localStorage.getItem('name');
+  const [name, setName] = React.useState(storedName || '');
+  const [authState, setAuthState] = React.useState( storedName ? AuthState.Authenticated : AuthState.Unauthenticated );
 
-  function handleAuthChange(userName, newAuthState) {
+  function handleAuthChange(newName, newAuthState) {
     setAuthState(newAuthState);
-    setUserName(userName);
+    setName(newName);
 
     if (newAuthState === AuthState.Authenticated) {
-      localStorage.setItem('userName', userName);
+      localStorage.setItem('name', newName);
     } else {
-      localStorage.removeItem('userName');
+      localStorage.removeItem('name');
     }
   }
 
@@ -48,15 +48,15 @@ export default function App() {
             path='/' 
             element={
               <Login 
-                userName={userName}
+                name={name}
                 authState={authState}
                 onAuthChange={handleAuthChange}
               />
             } 
             exact 
           />
-          <Route path='/play' element={<Play userName={userName} />} />
-          <Route path='/scores' element={<Scores userName={userName} />} />
+          <Route path='/play' element={<Play name={name} />} />
+          <Route path='/scores' element={<Scores name={name} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
 

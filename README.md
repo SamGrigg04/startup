@@ -99,7 +99,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 - [x] **Node.js/Express HTTP service** - Installed all the dependencies for the frontend, added the code to implement them in index.jsx
 - [x] **Static middleware for frontend** - Implemented for authenticating endpoint calls, parsing json, and tracking auth tokens
-- [ ] **Calls to third party endpoints** - Displays fun facts about the number guessed
+- [x] **Calls to third party endpoints** - Displays fun facts about the number guessed
 - [ ] **Backend service endpoints** - Beckend provides the endpoints for the frontend to call
 - [ ] **Frontend calls service endpoints** - Frontend calls the endpoints to do various useful things.
 - [ ] **Supports registration, login, logout, and restricted endpoint** - Yep, all those are in there. And they work too!

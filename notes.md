@@ -12,7 +12,7 @@ Service TODO:
 - [ ] Fix local scores so it actually works
 - [ ] Send local scores to the global leaderboard too
 - [x] Call third party endpoints from your frontend code using fetch. 
-- [ ] Debug 😫
+- [ ] Add an error message when a user tires to create an account that already exists or login with one that doesnt
 - [x] deployService.sh
 - [ ] Deploy application
 - [ ] Celebrate (and then immediately start working on the third project due this week 😭😭😭)

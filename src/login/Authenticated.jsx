@@ -1,3 +1,4 @@
+import React from 'react';
 import './Authenticated.css';
 
 export function Authenticated({ userName, onLogout }) {

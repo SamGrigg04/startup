@@ -5,7 +5,7 @@ import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Play } from './play/play';
 import { Scores } from './scores/scores';
-import { AuthState } from './AuthState';
+import { AuthState } from './authState';
 
 
 export default function App() {

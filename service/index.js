@@ -119,7 +119,10 @@ function updateScores(newScore) {
 
 // Convert a time string MM:SS:MS into milliseconds. Returns Infinity for invalid input
     function timeToMs(timeStr) {
-      const [min, sec, mil] = timeStr.split(':').map(Number);
+      if (!timeStr || typeof timeStr !== 'string') return Infinity;
+      const parts = timeStr.split(':').map(Number);
+      if (parts.length !== 3 || parts.some(isNaN)) return Infinity;
+      const [min, sec, mil] = parts;
       return min * 60000 + sec * 1000 + mil * 10;
     }
     

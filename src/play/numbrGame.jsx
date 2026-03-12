@@ -51,7 +51,7 @@ export function NumbrGame(props) {
       stopTimer()
       
       const timeStr = `${minutesStr}:${secondsStr}:${millisecondsStr}`;
-      const scoreObj = { userName, time: timeStr };
+      const scoreObj = { name: userName, time: timeStr };
 
       // Saves the result to local storage as a string and updates the leaderboard
       updateScoresLocal(scoreObj);
@@ -66,36 +66,13 @@ export function NumbrGame(props) {
     }
 
   // Updates the leaderboard
-  function updateScoresLocal(newScore) {
-    let scores = [];
+  async function updateScoresLocal(newScore) {
 
-    // Gets the current data from the leaderboard
-    const scoresText = localStorage.getItem('scores');
-    if (scoresText) {
-      scores = JSON.parse(scoresText);
-    }
-
-    // Inserts the new score based off the time
-    let found = false;
-    for (let i = 0; i < scores.length; i++) { // what a weird loop syntax. c'mon react
-      if (timeToMs(newScore.time) < timeToMs(scores[i].time)) {
-        scores.splice(i, 0, newScore);
-        found = true;
-        break;
-      }
-    }
-
-    // if the new score is the lowest, add it anyways
-    if (!found) {
-      scores.push(newScore);
-    }
-
-    // Keep the leaderboard to the top 10
-    if (scores.length > 10) {
-      scores.length = 10;
-    }
-    
-    localStorage.setItem('scores', JSON.stringify(scores));
+    await fetch('/api/score', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(newScore),
+    });
   }
 
   return (

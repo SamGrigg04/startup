@@ -5,7 +5,12 @@ export function APIcall({ number }) {
 
   React.useEffect(() => {
     if (number == "") return;
-    setFact(`What a fun fact about ${number}!`);
+    fetch(`http://numbersapi.com/${number}`)
+    .then((response) => response.json())
+    .then((data) => {
+      setFact(data);
+    })
+    .catch();
   }, [number]); // runs every time number changes
 
   return (
@@ -13,4 +18,5 @@ export function APIcall({ number }) {
       <p> {fact} </p>
     </div>
   );
+
 }

@@ -1,5 +1,6 @@
 import React from 'react';
-import { AuthState } from '../AuthState';
+
+import { AuthState } from '../authState';
 import { Authenticated } from './Authenticated';
 import { Unauthenticated } from './Unauthenticated';
 

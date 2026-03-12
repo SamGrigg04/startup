@@ -5,6 +5,28 @@ export function Unauthenticated({ onLogin }) {
   const [name, setName] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  async function loginUser() {
+    loginOrCreate(`/api/auth/login`);
+  }
+
+  async function createUser() {
+    loginOrCreate(`/api/auth/create`);
+  }
+
+  async function loginOrCreate(endpoint) {
+    const response = await fetch(endpoint, {
+      method: 'post',
+      body: JSON.stringify({ email: userName, password: password }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    });
+    if (response?.status === 200) {
+      localStorage.setItem('userName', userName);
+      props.onLogin(userName);
+    }
+  }
+
   return (
     <div className="unauthenticated">
       <input
@@ -25,15 +47,15 @@ export function Unauthenticated({ onLogin }) {
         <button
           className="btn btn-primary "
           id="login"
-          onClick={() => onLogin(name)}
+          onClick={() => loginUser()}
           disabled={!name || !password}
         >
           Login
         </button>
         <button
           className="btn btn-primary"
-          id="logout"
-          onClick={() => onLogin(name)}
+          id="create"
+          onClick={() => createUser()}
           disabled={!name || !password}
         >
           Create

@@ -24,7 +24,7 @@
 }
 
 /* match navbar style */
-#login, #logout {
+#login, #logout, #create {
   flex: 1;
   background-color: rgba(50, 50, 160, 0.75);
   border-style: solid;
@@ -37,11 +37,11 @@
   cursor: pointer;
 }
 
-#login:hover, #logout:hover {
+#login:hover, #logout:hover, #create:hover {
   background-color: rgb(40, 40, 130);
 }
 
-#login:disabled, #logout:disabled {
+#login:disabled, #logout:disabled, #create:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }

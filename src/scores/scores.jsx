@@ -9,11 +9,12 @@ export function Scores(props) {
   const [showGlobal, setShowGlobal] = React.useState(false); // So you can switch between leaderboards
 
   // Initialize the local leaderboard
-  React.useEffect(() => {
-    const scoresText = localStorage.getItem('scores');
-    if (scoresText) {
-      setLocalScores(JSON.parse(scoresText));
-    }
+    React.useEffect(() => {
+    fetch('/api/scores')
+      .then((response) => response.json())
+      .then((scores) => {
+        setLocalScores(scores);
+      });
   }, []);
 
   // convert time from a string to milliseconds for comparison in a sec

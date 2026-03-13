@@ -1,9 +1,11 @@
 import React from 'react';
 import './Unauthenticated.css';
+import { MessageDialog } from './messageDialog';
 
 export function Unauthenticated({ name: initialName = '', onLogin }) {
   const [name, setName] = React.useState(initialName ?? '');
   const [password, setPassword] = React.useState('');
+  const [displayError, setDisplayError] = React.useState(null);
 
   async function loginUser() {
     loginOrCreate(`/api/auth/login`);
@@ -25,6 +27,9 @@ export function Unauthenticated({ name: initialName = '', onLogin }) {
     if (response?.status === 200) {
       localStorage.setItem('name', name);
       onLogin(name);
+    } else {
+      const body = await response.json();
+      setDisplayError(`⚠ Error: ${body.msg}`);
     }
   }
 
@@ -64,6 +69,9 @@ export function Unauthenticated({ name: initialName = '', onLogin }) {
           Create
         </button>
       </div>
+      
+      <MessageDialog message={displayError} onHide={() => setDisplayError(null)} />
+    
     </div>
   );
 }

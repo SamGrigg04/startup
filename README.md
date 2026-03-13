@@ -99,10 +99,10 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 - [x] **Node.js/Express HTTP service** - Installed all the dependencies for the frontend, added the code to implement them in index.jsx
 - [x] **Static middleware for frontend** - Implemented for authenticating endpoint calls, parsing json, and tracking auth tokens
-- [x] **Calls to third party endpoints** - Displays fun facts about the number guessed
-- [ ] **Backend service endpoints** - Beckend provides the endpoints for the frontend to call
-- [ ] **Frontend calls service endpoints** - Frontend calls the endpoints to do various useful things.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - Yep, all those are in there. And they work too!
+- [x] **Calls to third party endpoints** - It was going to display fun facts about the number guessed, but I fought with that api for like, an hour and gave up so now it is just random facts.
+- [x] **Backend service endpoints** - Beckend provides the endpoints for the frontend to call
+- [x] **Frontend calls service endpoints** - Frontend calls the endpoints to do various useful things.
+- [x] **Supports registration, login, logout, and restricted endpoint** - Yep, all those are in there. And they work too! If the backend restarts while you are logged in, you can still play but you won't see your scores.
 
 ## 🚀 DB deliverable
 

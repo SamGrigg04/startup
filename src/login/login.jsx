@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { AuthState } from '../authState';
-import { Authenticated } from './Authenticated';
-import { Unauthenticated } from './Unauthenticated';
+import { Authenticated } from './authenticated';
+import { Unauthenticated } from './unauthenticated';
 
 export function Login({ name, authState, onAuthChange }) {
   return (

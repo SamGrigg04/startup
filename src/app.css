@@ -119,6 +119,10 @@ main form div {
     margin: 5%;
 }
 
+div.fade {
+    margin: 0%;
+}
+
 footer {
     grid-area: footer;
     display: flex;

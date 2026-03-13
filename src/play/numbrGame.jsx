@@ -95,6 +95,7 @@ export function NumbrGame(props) {
                 type="number" 
                 placeholder="Your guess..." 
                 value={guess}
+                maxLength={4}
                 onChange={(e) => setGuess(e.target.value)}
                 />
             </div>

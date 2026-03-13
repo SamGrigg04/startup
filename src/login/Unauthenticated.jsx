@@ -34,6 +34,7 @@ export function Unauthenticated({ name: initialName = '', onLogin }) {
         type="text"
         placeholder="Username"
         value={name}
+        maxLength={100}
         onChange={(e) => setName(e.target.value)}
         className="input"
       />
@@ -41,6 +42,7 @@ export function Unauthenticated({ name: initialName = '', onLogin }) {
         type="password"
         placeholder="Password"
         value={password}
+        maxLength={100}
         onChange={(e) => setPassword(e.target.value)}
         className="input"
       />

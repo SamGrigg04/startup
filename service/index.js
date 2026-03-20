@@ -96,28 +96,28 @@ app.use((_req, res) => {
 });
 
 // updateScores considers a new score for inclusion in the high scores.
-function updateScores(newScore) {
-  let found = false;
-  for (const [i, prevScore] of scores.entries()) {
-    if (timeToMs(newScore.time) < timeToMs(scores[i].time)) {
-      scores.splice(i, 0, newScore);
-      found = true;
-      break;
-    }
-  }
+async function updateScores(newScore) {
+  // let found = false;
+  // for (const [i, prevScore] of scores.entries()) {
+  //   if (timeToMs(newScore.time) < timeToMs(scores[i].time)) {
+  //     scores.splice(i, 0, newScore);
+  //     found = true;
+  //     break;
+  //   }
+  // }
 
-  if (!found) {
-    scores.push(newScore);
-  }
+  // if (!found) {
+  //   scores.push(newScore);
+  // }
 
-  if (scores.length > 10) {
-    scores.length = 10;
-  }
+  // if (scores.length > 10) {
+  //   scores.length = 10;
+  // }
 
-  return scores;
+  // return scores;
 
-  // await DB.addScore(newScore);
-  // return DB.getHighScores();
+  await DB.addScore(newScore);
+  return DB.getHighScores();
 }
 
 // Convert a time string MM:SS:MS into milliseconds. Returns Infinity for invalid input

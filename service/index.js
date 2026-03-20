@@ -3,12 +3,9 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const { v4: uuidv4 } = require('uuid');
 const app = express();
+const DB = require('./database.js');
 
 const authCookieName = 'token';
-
-// The scores and users are saved in memory and disappear whenever the service is restarted.
-let users = [];
-let scores = [];
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 // Starter code
@@ -46,6 +43,7 @@ apiRouter.post('/auth/login', async (req, res) => {
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.token = uuidv4();
+      await DB.updateUser(user);
       setAuthCookie(res, user.token);
       res.send({ email: user.email });
       return;
@@ -59,6 +57,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   if (user) {
     delete user.token;
+    DB.updateUserRemoveAuth(user);
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
@@ -75,7 +74,8 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // GetScores
-apiRouter.get('/scores', verifyAuth, (_req, res) => {
+apiRouter.get('/scores', verifyAuth, async (req, res) => {
+  const scores = await DB.getHighScores();
   res.send(scores);
 });
 
@@ -115,6 +115,9 @@ function updateScores(newScore) {
   }
 
   return scores;
+
+  // await DB.addScore(newScore);
+  // return DB.getHighScores();
 }
 
 // Convert a time string MM:SS:MS into milliseconds. Returns Infinity for invalid input
@@ -134,7 +137,7 @@ async function createUser(email, password) {
     password: passwordHash,
     token: uuidv4(),
   };
-  users.push(user);
+  await DB.addUser(user);
 
   return user;
 }
@@ -142,7 +145,10 @@ async function createUser(email, password) {
 async function findUser(field, value) {
   if (!value) return null;
 
-  return users.find((u) => u[field] === value);
+  if (field === 'token') {
+    return DB.getUserByToken(value);
+  }
+  return DB.getUser(value);
 }
 
 // setAuthCookie in the HTTP response

@@ -3,7 +3,7 @@ const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
-const db = client.db('Cluster0'); // TODO: REPLACE ME
+const db = client.db('Test1'); // TODO: REPLACE ME
 const userCollection = db.collection('user'); // TODO: REPLACE ME
 const scoreCollection = db.collection('score'); // TODO: REPLACE ME
 

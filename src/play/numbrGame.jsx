@@ -65,7 +65,7 @@ export function NumbrGame(props) {
 
     await fetch('/api/score', {
       method: 'POST',
-      credentials: 'include',
+      // credentials: 'include',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(newScore),
     });

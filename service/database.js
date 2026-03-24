@@ -3,7 +3,7 @@ const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
-const db = client.db('Test1'); // creates a database called "Test1"
+const db = client.db('numbrGuessr'); // creates a database called "Test1"
 const userCollection = db.collection('user'); // creates a collection in the database to store users
 const localScoreCollection = db.collection('localScore'); // creates a collection in the database to store local scores
 const globalScoreCollection = db.collection('globalScore'); // creates a collection in the database to store global scores

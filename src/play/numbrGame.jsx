@@ -55,6 +55,7 @@ export function NumbrGame(props) {
 
       // Saves the result to local storage as a string and updates the leaderboard
       updateScoresLocal(scoreObj);
+      updateScoresGlobal(scoreObj);
       
       GameNotifier.broadcastEvent(name, GameEvent.End, scoreObj);
     }
@@ -63,7 +64,17 @@ export function NumbrGame(props) {
   // Updates the leaderboard
   async function updateScoresLocal(newScore) {
 
-    await fetch('/api/score', {
+    await fetch('/api/localScore', {
+      method: 'POST',
+      // credentials: 'include',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(newScore),
+    });
+  }
+
+  async function updateScoresGlobal(newScore) {
+
+    await fetch('/api/globalScore', {
       method: 'POST',
       // credentials: 'include',
       headers: { 'content-type': 'application/json' },

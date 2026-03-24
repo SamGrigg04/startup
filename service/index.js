@@ -123,11 +123,10 @@ async function updateGlobalScores(newScore) {
   return DB.getGlobalHighScores();
 }
 
-// Convert a time string MM:SS:MS into milliseconds. Returns Infinity for invalid input
+// Convert a time string MM:SS:MS into milliseconds
     function timeToMs(timeStr) {
-      // if (!timeStr || typeof timeStr !== 'string') return Infinity;
+      if (!timeStr || typeof timeStr !== 'string') return {name: "be the first!", score: 0};
       const parts = timeStr.split(':').map(Number);
-      // if (parts.length !== 3 || parts.some(isNaN)) return Infinity;
       const [min, sec, mil] = parts;
       return min * 60000 + sec * 1000 + mil * 10;
     }

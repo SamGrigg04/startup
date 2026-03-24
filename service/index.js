@@ -27,25 +27,25 @@ app.use(`/api`, apiRouter);
 
 // CreateAuth a new user
 apiRouter.post('/auth/create', async (req, res) => {
-  if (await findUser('email', req.body.email)) {
+  if (await findUser('username', req.body.username)) {
     res.status(409).send({ msg: 'Existing user' });
   } else {
-    const user = await createUser(req.body.email, req.body.password);
+    const user = await createUser(req.body.username, req.body.password);
 
     setAuthCookie(res, user.token);
-    res.send({ email: user.email });
+    res.send({ username: user.username });
   }
 });
 
 // GetAuth login an existing user
 apiRouter.post('/auth/login', async (req, res) => {
-  const user = await findUser('email', req.body.email);
+  const user = await findUser('username', req.body.username);
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.token = uuidv4();
       await DB.updateUser(user);
       setAuthCookie(res, user.token);
-      res.send({ email: user.email });
+      res.send({ username: user.username });
       return;
     }
   }
@@ -125,17 +125,17 @@ async function updateGlobalScores(newScore) {
 
 // Convert a time string MM:SS:MS into milliseconds
     function timeToMs(timeStr) {
-      if (!timeStr || typeof timeStr !== 'string') return {name: "be the first!", score: 0};
+      if (!timeStr || typeof timeStr !== 'string') return {name: "be the first!", time: {}};
       const parts = timeStr.split(':').map(Number);
       const [min, sec, mil] = parts;
       return min * 60000 + sec * 1000 + mil * 10;
     }
     
-async function createUser(email, password) {
+async function createUser(username, password) {
   const passwordHash = await bcrypt.hash(password, 10);
 
     const user = {
-    email: email,
+    username: username,
     password: passwordHash,
     token: uuidv4(),
   };

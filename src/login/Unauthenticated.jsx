@@ -19,7 +19,7 @@ export function Unauthenticated({ name: initialName = '', onLogin }) {
     const response = await fetch(endpoint, {
       method: 'post',
       // credentials: 'include',
-      body: JSON.stringify({ email: name, password: password }),
+      body: JSON.stringify({ username: name, password: password }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },

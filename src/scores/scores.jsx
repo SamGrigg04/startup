@@ -9,8 +9,8 @@ export function Scores(props) {
   const [showGlobal, setShowGlobal] = React.useState(false); // So you can switch between leaderboards
 
   // Initialize the local leaderboard
-    React.useEffect(() => {
-    fetch('/api/scores', { credentials: 'include' })
+  React.useEffect(() => {
+    fetch('/api/localScores')
       .then((response) => response.json())
       .then((scores) => {
         setLocalScores(scores);
@@ -20,35 +20,47 @@ export function Scores(props) {
       });
   }, []);
 
-  // convert time from a string to milliseconds for comparison in a sec
-  function timeToMs(timeStr) {
-    if (!timeStr || typeof timeStr != 'string') {
-      return;
-    } // Don't break if it doesn't exist or isn't a string
-    const parts = timeStr.split(':').map(Number);
-    if (parts.length != 3 || parts.some(isNaN)) {
-      return; // Don't break if the format is invalid
-    }
-    const [min, sec, mil] = parts;
-    return min * 60000 + sec * 1000 + mil * 10;
-  }
-
-  // Update the global leaderboard upon a game ending
+  // Initialize the global leaderboard
   React.useEffect(() => {
-    const handler = (event) => {
-      if (event.type == GameEvent.End) { // When a game ends
-        // Update global
-        setGlobalScores(prev => {
-          const newScores = [...prev, event.value]; // add the new score (we can't just update the old array because react won't notice so there is this weird syntax)
-          newScores.sort((a, b) => timeToMs(a.time) - timeToMs(b.time)); // sort by time (takes two items and comparest the time. lowest goes first)
-          return newScores.slice(0, 10); // keep top 10
-        });
-      }
-    };
-
-    GameNotifier.addHandler(handler);
-    return () => GameNotifier.removeHandler(handler);
+    fetch('/api/globalScores')
+      .then((response) => response.json())
+      .then((scores) => {
+        setGlobalScores(scores);
+      })
+      .catch((err) => {
+          console.error('Failed to load global scores:', err);
+      });
   }, []);
+
+  // convert time from a string to milliseconds for comparison in a sec
+  // function timeToMs(timeStr) {
+  //   if (!timeStr || typeof timeStr != 'string') {
+  //     return;
+  //   } // Don't break if it doesn't exist or isn't a string
+  //   const parts = timeStr.split(':').map(Number);
+  //   if (parts.length != 3 || parts.some(isNaN)) {
+  //     return; // Don't break if the format is invalid
+  //   }
+  //   const [min, sec, mil] = parts;
+  //   return min * 60000 + sec * 1000 + mil * 10;
+  // }
+
+  // // Update the global leaderboard upon a game ending
+  // React.useEffect(() => {
+  //   const handler = (event) => {
+  //     if (event.type == GameEvent.End) { // When a game ends
+  //       // Update global
+  //       setGlobalScores(prev => {
+  //         const newScores = [...prev, event.value]; // add the new score (we can't just update the old array because react won't notice so there is this weird syntax)
+  //         newScores.sort((a, b) => timeToMs(a.time) - timeToMs(b.time)); // sort by time (takes two items and comparest the time. lowest goes first)
+  //         return newScores.slice(0, 10); // keep top 10
+  //       });
+  //     }
+  //   };
+
+  //   GameNotifier.addHandler(handler);
+  //   return () => GameNotifier.removeHandler(handler);
+  // }, []);
 
   // Switch between global and local every 10 seconds
   React.useEffect(() => {

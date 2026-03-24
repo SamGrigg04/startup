@@ -32,35 +32,45 @@ export function Scores(props) {
       });
   }, []);
 
-  // convert time from a string to milliseconds for comparison in a sec
-  // function timeToMs(timeStr) {
-  //   if (!timeStr || typeof timeStr != 'string') {
-  //     return;
-  //   } // Don't break if it doesn't exist or isn't a string
-  //   const parts = timeStr.split(':').map(Number);
-  //   if (parts.length != 3 || parts.some(isNaN)) {
-  //     return; // Don't break if the format is invalid
-  //   }
-  //   const [min, sec, mil] = parts;
-  //   return min * 60000 + sec * 1000 + mil * 10;
-  // }
+  // Update leaderboards upon a game ending
+  React.useEffect(() => {
+    const handler = (event) => {
+      if (event.type == GameEvent.End) { // When a game ends
+        fetch('/api/globalScores')
+          .then((response) => response.json())
+          .then((scores) => {
+            updateGlobalScores(scores);
+          })
+        
+        fetch('/api/localScores')
+          .then((response) => response.json())
+          .then((scores) => {
+            updateLocalScores(scores);
+          })
+      }
+    };
+    GameNotifier.addHandler(handler);
+    return () => GameNotifier.removeHandler(handler);
+  }, []);
 
-  // // Update the global leaderboard upon a game ending
-  // React.useEffect(() => {
-  //   const handler = (event) => {
-  //     if (event.type == GameEvent.End) { // When a game ends
-  //       // Update global
-  //       setGlobalScores(prev => {
-  //         const newScores = [...prev, event.value]; // add the new score (we can't just update the old array because react won't notice so there is this weird syntax)
-  //         newScores.sort((a, b) => timeToMs(a.time) - timeToMs(b.time)); // sort by time (takes two items and comparest the time. lowest goes first)
-  //         return newScores.slice(0, 10); // keep top 10
-  //       });
-  //     }
-  //   };
+  // Updates the leaderboard
+  async function updateLocalScores(newScore) {
+    await fetch('/api/localScore', {
+      method: 'POST',
+      // credentials: 'include',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(newScore),
+    });
+  }
 
-  //   GameNotifier.addHandler(handler);
-  //   return () => GameNotifier.removeHandler(handler);
-  // }, []);
+  async function updateGlobalScores(newScore) {
+    await fetch('/api/globalScore', {
+      method: 'POST',
+      // credentials: 'include',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(newScore),
+    });
+  }
 
   // Switch between global and local every 10 seconds
   React.useEffect(() => {
@@ -76,14 +86,16 @@ export function Scores(props) {
   function LeaderboardTable({ scores }) {
     function getPlaceDisplay(place) {
       // place is 1-indexed (1, 2, 3, etc.)
-      if (place == 1) {
-        return <img src="first.png" alt="1st place" style={{ height: '30px' }} />;
-      }
-      if (place == 2) {
-        return <img src="second.png" alt="2nd place" style={{ height: '30px' }} />;
-      }
-      if (place == 3) {
-        return <img src="third.png" alt="3rd place" style={{ height: '30px' }} />;
+      if (place < 4) {
+        if (place == 1) {
+          return <img src="first.png" alt="1st place" style={{ height: '30px' }} />;
+        }
+        if (place == 2) {
+          return <img src="second.png" alt="2nd place" style={{ height: '30px' }} />;
+        }
+        if (place == 3) {
+          return <img src="third.png" alt="3rd place" style={{ height: '30px' }} />;
+        }
       }
       return place;
     }

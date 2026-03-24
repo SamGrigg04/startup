@@ -44,12 +44,11 @@ async function addLocalScore(localScore) {
 }
 
 function getLocalHighScores() {
-  // gets scores greater than 0 and less than 900
-  const query = { time: /\d+/ };
+  const query = { time: { $gt: -1} };
 
   // sorts largest to smallest with a limit of 10
   const options = {
-    sort: { time: -1 },
+    sort: { time: 1 },
     limit: 10,
   };
 
@@ -65,12 +64,11 @@ async function addGlobalScore(globalScore) {
 }
 
 function getGlobalHighScores() {
-  // gets scores greater than 0 and less than 900
-  const query = { time: /\d+/ };
+  const query = { time: { $gt: -1} };
 
-  // sorts largest to smallest with a limit of 10
+  // sorts smallest to largest with a limit of 10
   const options = {
-    sort: { time: -1 },
+    sort: { time: 1 },
     limit: 10,
   };
 

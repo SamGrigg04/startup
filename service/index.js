@@ -110,16 +110,16 @@ app.use((_req, res) => {
 // updateScores considers a new score for inclusion in the high scores.
 async function updateLocalScores(newScore) {
   // Stores scores as miliseconds for easier comparison
-  const msScore = timeToMs(newScore);
+  newScore.time = timeToMs(newScore.time);
 
-  await DB.addLocalScore(msScore);
+  await DB.addLocalScore(newScore);
   return DB.getLocalHighScores();
 }
 
 async function updateGlobalScores(newScore) {
-  const msScore = timeToMs(newScore);
+  newScore.time = timeToMs(newScore.time);
 
-  await DB.addGlobalScore(msScore);
+  await DB.addGlobalScore(newScore);
   return DB.getGlobalHighScores();
 }
 

@@ -3,9 +3,10 @@ const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
-const db = client.db('Test1'); // TODO: REPLACE ME
-const userCollection = db.collection('user'); // TODO: REPLACE ME
-const scoreCollection = db.collection('score'); // TODO: REPLACE ME
+const db = client.db('Test1'); // creates a database called "Test1"
+const userCollection = db.collection('user'); // creates a collection in the database to store users
+const localScoreCollection = db.collection('localScore'); // creates a collection in the database to store local scores
+const globalScoreCollection = db.collection('globalScore'); // creates a collection in the database to store global scores
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -38,17 +39,45 @@ async function updateUserRemoveAuth(user) {
   await userCollection.updateOne({ email: user.email }, { $unset: { token: 1 } });
 }
 
-async function addScore(score) {
-  return scoreCollection.insertOne(score);
+async function addLocalScore(score) {
+  return localScoreCollection.insertOne(score);
 }
 
-function getHighScores() {
+function getLocalHighScores() {
+  // gets scores greater than 0 and less than 900
   const query = { score: { $gt: 0, $lt: 900 } };
+
+  // sorts largest to smallest with a limit of 10
   const options = {
     sort: { score: -1 },
     limit: 10,
   };
-  const cursor = scoreCollection.find(query, options);
+
+  // runs the query on scoresCollection and returns an iterator over the results
+  const cursor = localScoreCollection.find(query, options);
+
+  // turns the cursor into an array
+  return cursor.toArray();
+}
+
+async function addGlobalScore(score) {
+  return globalScoreCollection.insertOne(score);
+}
+
+function getGlobalHighScores() {
+  // gets scores greater than 0 and less than 900
+  const query = { score: { $gt: 0, $lt: 900 } };
+
+  // sorts largest to smallest with a limit of 10
+  const options = {
+    sort: { score: -1 },
+    limit: 10,
+  };
+
+  // runs the query on scoresCollection and returns an iterator over the results
+  const cursor = globalScoreCollection.find(query, options);
+
+  // turns the cursor into an array
   return cursor.toArray();
 }
 
@@ -58,6 +87,8 @@ module.exports = {
   addUser,
   updateUser,
   updateUserRemoveAuth,
-  addScore,
-  getHighScores,
+  addLocalScore,
+  getLocalHighScores,
+  addGlobalScore,
+  getGlobalHighScores,
 };

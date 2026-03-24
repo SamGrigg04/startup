@@ -108,8 +108,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Stores data in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Stores credentials in MongoDB** - I did not complete this part of the deliverable.
+- [x] **Stores data in MongoDB** - Stores the scores for the local and global leaderboard in two different collections
+- [x] **Stores credentials in MongoDB** - Stores the user credentials in the user collection
 
 ## 🚀 WebSocket deliverable
 

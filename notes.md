@@ -6,5 +6,5 @@ Database TODO:
 looks like somehthing is going wrong in numbrGame.jsx when calling updateScoresLocal. It goes to index.js where when it tries to store the score as miliseconds, the .spit function doesn't work (becuase it doesn't get a string??)
 - [x] Send local scores to the global leaderboard too
 - [x] Update global leaderboard at the same time as the local
-- [ ] Deploy simon
-- [ ] Deploy application
+- [x] Deploy simon
+- [x] Deploy application

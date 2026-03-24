@@ -45,7 +45,7 @@ async function addLocalScore(score) {
 
 function getLocalHighScores() {
   // gets scores greater than 0 and less than 900
-  const query = { score: { $gt: 0, $lt: 900 } };
+  const query = { score };
 
   // sorts largest to smallest with a limit of 10
   const options = {
@@ -66,7 +66,7 @@ async function addGlobalScore(score) {
 
 function getGlobalHighScores() {
   // gets scores greater than 0 and less than 900
-  const query = { score: { $gt: 0, $lt: 900 } };
+  const query = { score };
 
   // sorts largest to smallest with a limit of 10
   const options = {

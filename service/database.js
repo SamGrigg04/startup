@@ -19,8 +19,8 @@ const globalScoreCollection = db.collection('globalScore'); // creates a collect
   }
 })();
 
-function getUser(email) {
-  return userCollection.findOne({ email: email });
+function getUser(username) {
+  return userCollection.findOne({ username: username });
 }
 
 function getUserByToken(token) {
@@ -32,24 +32,24 @@ async function addUser(user) {
 }
 
 async function updateUser(user) {
-  await userCollection.updateOne({ email: user.email }, { $set: user });
+  await userCollection.updateOne({ username: user.username }, { $set: user });
 }
 
 async function updateUserRemoveAuth(user) {
-  await userCollection.updateOne({ email: user.email }, { $unset: { token: 1 } });
+  await userCollection.updateOne({ username: user.username }, { $unset: { token: 1 } });
 }
 
-async function addLocalScore(score) {
-  return localScoreCollection.insertOne(score);
+async function addLocalScore(localScore) {
+  return localScoreCollection.insertOne(localScore);
 }
 
 function getLocalHighScores() {
   // gets scores greater than 0 and less than 900
-  const query = { score };
+  const query = { time: /\d+/ };
 
   // sorts largest to smallest with a limit of 10
   const options = {
-    sort: { score: -1 },
+    sort: { time: -1 },
     limit: 10,
   };
 
@@ -60,17 +60,17 @@ function getLocalHighScores() {
   return cursor.toArray();
 }
 
-async function addGlobalScore(score) {
-  return globalScoreCollection.insertOne(score);
+async function addGlobalScore(globalScore) {
+  return globalScoreCollection.insertOne(globalScore);
 }
 
 function getGlobalHighScores() {
   // gets scores greater than 0 and less than 900
-  const query = { score };
+  const query = { time: /\d+/ };
 
   // sorts largest to smallest with a limit of 10
   const options = {
-    sort: { score: -1 },
+    sort: { time: -1 },
     limit: 10,
   };
 

@@ -73,15 +73,27 @@ const verifyAuth = async (req, res, next) => {
   }
 };
 
-// GetScores
-apiRouter.get('/scores', verifyAuth, async (req, res) => {
-  const scores = await DB.getHighScores();
+// GetLocalScores
+apiRouter.get('/localScores', verifyAuth, async (req, res) => {
+  const scores = await DB.getLocalHighScores();
   res.send(scores);
 });
 
-// SubmitScore
-apiRouter.post('/score', verifyAuth, (req, res) => {
-  scores = updateScores(req.body);
+// SubmitLocalScore
+apiRouter.post('/localScore', verifyAuth, (req, res) => {
+  scores = updateLocalScores(req.body);
+  res.send(scores);
+});
+
+// GetGlobalScores
+apiRouter.get('/globalScores', verifyAuth, async (req, res) => {
+  const scores = await DB.getGlobalHighScores();
+  res.send(scores);
+});
+
+// SubmitGlobalScore
+apiRouter.post('/globalScore', verifyAuth, (req, res) => {
+  scores = updateGlobalScores(req.body);
   res.send(scores);
 });
 
@@ -96,28 +108,19 @@ app.use((_req, res) => {
 });
 
 // updateScores considers a new score for inclusion in the high scores.
-async function updateScores(newScore) {
-  // let found = false;
-  // for (const [i, prevScore] of scores.entries()) {
-  //   if (timeToMs(newScore.time) < timeToMs(scores[i].time)) {
-  //     scores.splice(i, 0, newScore);
-  //     found = true;
-  //     break;
-  //   }
-  // }
+async function updateLocalScores(newScore) {
+  // Stores scores as miliseconds for easier comparison
+  const msScore = timeToMs(newScore);
 
-  // if (!found) {
-  //   scores.push(newScore);
-  // }
+  await DB.addLocalScore(msScore);
+  return DB.getLocalHighScores();
+}
 
-  // if (scores.length > 10) {
-  //   scores.length = 10;
-  // }
+async function updateGlobalScores(newScore) {
+  const msScore = timeToMs(newScore);
 
-  // return scores;
-
-  await DB.addScore(newScore);
-  return DB.getHighScores();
+  await DB.addGlobalScore(msScore);
+  return DB.getGlobalHighScores();
 }
 
 // Convert a time string MM:SS:MS into milliseconds. Returns Infinity for invalid input

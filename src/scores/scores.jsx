@@ -122,28 +122,25 @@ export function Scores(props) {
     );
   }
 
-  // Simulate some scores for the Global leaderboard
-  function fakeScore() {
-    const randomMinutes = Math.floor(Math.random() * 5);
-    const randomSeconds = Math.floor(Math.random() * 60);
-    const randomMilliseconds = Math.floor(Math.random() * 100);
-    const timeStr = `${String(randomMinutes).padStart(2, '0')}:${String(randomSeconds).padStart(2,'0')}:${String(randomMilliseconds).padStart(2,'0')}`;
+//   // Simulate some scores for the Global leaderboard
+//   function fakeScore() {
+//     const randomMilliseconds = Math.floor(Math.random() * 1000);
 
-    const users = ['Abe', 'Babe', 'Cabe', 'Dave', 'Egg'];
-    const name = users[Math.floor(Math.random() * users.length)];
+//     const users = ['Abe', 'Babe', 'Cabe', 'Dave', 'Egg'];
+//     const name = users[Math.floor(Math.random() * users.length)];
 
-  return { name, time: timeStr};
-}
+//   return { name, time: randomMilliseconds};
+// }
 
-  // Display the fake scores at an interval
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      const score = fakeScore();
-      GameNotifier.broadcastEvent(score.name, GameEvent.End, score);
-    }, 5000);
+//   // Display the fake scores at an interval
+//   React.useEffect(() => {
+//     const interval = setInterval(() => {
+//       const score = fakeScore();
+//       GameNotifier.broadcastEvent(score.name, GameEvent.End, score);
+//     }, 5000);
 
-    return () => clearInterval(interval);
-  }, []);
+//     return () => clearInterval(interval);
+//   }, []);
 
   return (
     <main>

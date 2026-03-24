@@ -116,7 +116,8 @@ export function NumbrGame(props) {
                   id="guess-btn"
                   onClick={handleGuess}
                  >
-                  GUESS {target}
+                  GUESS
+                  {/* GUESS {target} FOR TESTING */}
                 </Button>
             </div>
         </form>

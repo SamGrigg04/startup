@@ -8,69 +8,21 @@ export function Scores(props) {
   const [globalScores, setGlobalScores] = React.useState([]); // Scores for the global leaderboard
   const [showGlobal, setShowGlobal] = React.useState(false); // So you can switch between leaderboards
 
-  // Initialize the local leaderboard
   React.useEffect(() => {
     fetch('/api/localScores')
       .then((response) => response.json())
       .then((scores) => {
         setLocalScores(scores);
-      })
-      .catch((err) => {
-          console.error('Failed to load local scores:', err);
       });
   }, []);
 
-  // Initialize the global leaderboard
   React.useEffect(() => {
     fetch('/api/globalScores')
       .then((response) => response.json())
       .then((scores) => {
         setGlobalScores(scores);
-      })
-      .catch((err) => {
-          console.error('Failed to load global scores:', err);
       });
   }, []);
-
-  // Update leaderboards upon a game ending
-  React.useEffect(() => {
-    const handler = (event) => {
-      if (event.type == GameEvent.End) { // When a game ends
-        fetch('/api/globalScores')
-          .then((response) => response.json())
-          .then((scores) => {
-            updateGlobalScores(scores);
-          })
-        
-        fetch('/api/localScores')
-          .then((response) => response.json())
-          .then((scores) => {
-            updateLocalScores(scores);
-          })
-      }
-    };
-    GameNotifier.addHandler(handler);
-    return () => GameNotifier.removeHandler(handler);
-  }, []);
-
-  // Updates the leaderboard
-  async function updateLocalScores(newScore) {
-    await fetch('/api/localScore', {
-      method: 'POST',
-      // credentials: 'include',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(newScore),
-    });
-  }
-
-  async function updateGlobalScores(newScore) {
-    await fetch('/api/globalScore', {
-      method: 'POST',
-      // credentials: 'include',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(newScore),
-    });
-  }
 
   // Switch between global and local every 10 seconds
   React.useEffect(() => {
@@ -80,6 +32,18 @@ export function Scores(props) {
 
     return () => clearInterval(id);
   }, []);
+
+  function formatTime(ms) {
+  if (typeof ms !== 'number') return "--";
+
+  const minutes = Math.floor(ms / 60000);
+  const seconds = Math.floor((ms % 60000) / 1000);
+  const milliseconds = Math.floor((ms % 1000) / 10);
+
+  return `${minutes.toString().padStart(2, '0')}:` +
+         `${seconds.toString().padStart(2, '0')}:` +
+         `${milliseconds.toString().padStart(2, '0')}`;
+}
 
   // This makes the leaderboard procedurally otherwise there would be a *ton* of
   // duplicated code (trust me, I speak from experience)
@@ -114,7 +78,7 @@ export function Scores(props) {
             <tr key={i}>
               <td>{getPlaceDisplay(i + 1)}</td>
               <td>{scores[i]?.name ?? "--"}</td>
-              <td>{scores[i]?.time ?? "--"}</td>
+              <td>{scores[i] ? formatTime(scores[i].time) : "--"}</td>
             </tr>
           ))}
         </tbody>
@@ -149,13 +113,13 @@ export function Scores(props) {
         {/* This is neat, it changes the class name to hidden or visible based on the showGlobal variable */}
         <div className={`board ${showGlobal ? "hidden" : "visible"}`}>
           <h2>Personal Best</h2>
+          {/* localScores should be an array of objects */}
           <LeaderboardTable scores={localScores} />
         </div>
 
         <div className={`board ${showGlobal ? "visible" : "hidden"}`}>
           <h2>Global Leaderboard</h2>
           <LeaderboardTable scores={globalScores} />
-          <p>eventually this will read from a database, but for now it resets every time the page reloads</p>
         </div>
       </div>
     </main>

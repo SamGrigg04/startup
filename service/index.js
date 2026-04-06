@@ -125,12 +125,12 @@ async function updateGlobalScores(newScore) {
 }
 
 // Convert a time string MM:SS:MS into milliseconds
-    function timeToMs(timeStr) {
-      if (!timeStr || typeof timeStr !== 'string') return 0;
-      const parts = timeStr.split(':').map(Number);
-      const [min, sec, mil] = parts;
-      return min * 60000 + sec * 1000 + mil * 10;
-    }
+function timeToMs(timeStr) {
+  if (!timeStr || typeof timeStr !== 'string') return 0;
+  const parts = timeStr.split(':').map(Number);
+  const [min, sec, mil] = parts;
+  return min * 60000 + sec * 1000 + mil * 10;
+}
     
 async function createUser(username, password) {
   const passwordHash = await bcrypt.hash(password, 10);

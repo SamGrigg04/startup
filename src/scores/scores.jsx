@@ -1,6 +1,5 @@
 import React from 'react';
 import './scores.css';
-import { GameEvent, GameNotifier } from '../gameNotifier';
 
 export function Scores(props) {
   const name = props.name;
@@ -85,26 +84,6 @@ export function Scores(props) {
       </table>
     );
   }
-
-//   // Simulate some scores for the Global leaderboard
-//   function fakeScore() {
-//     const randomMilliseconds = Math.floor(Math.random() * 1000);
-
-//     const users = ['Abe', 'Babe', 'Cabe', 'Dave', 'Egg'];
-//     const name = users[Math.floor(Math.random() * users.length)];
-
-//   return { name, time: randomMilliseconds};
-// }
-
-//   // Display the fake scores at an interval
-//   React.useEffect(() => {
-//     const interval = setInterval(() => {
-//       const score = fakeScore();
-//       GameNotifier.broadcastEvent(score.name, GameEvent.End, score);
-//     }, 5000);
-
-//     return () => clearInterval(interval);
-//   }, []);
 
   return (
     <main>

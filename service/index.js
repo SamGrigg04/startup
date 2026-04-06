@@ -76,13 +76,15 @@ const verifyAuth = async (req, res, next) => {
 
 // GetLocalScores
 apiRouter.get('/localScores', verifyAuth, async (req, res) => {
-  const scores = await DB.getLocalHighScores();
+  const user = await findUser('token', req.cookies[authCookieName]);
+  const scores = await DB.getLocalHighScores(user.username);
   res.send(scores);
 });
 
 // SubmitLocalScore
 apiRouter.post('/localScore', verifyAuth, async (req, res) => {
-  const scores = await updateLocalScores(req.body);
+  const user = await findUser('token', req.cookies[authCookieName]);
+  const scores = await updateLocalScores({ ...req.body, name: user.username });
   res.send(scores);
 });
 
@@ -116,7 +118,7 @@ async function updateLocalScores(newScore) {
   newScore.time = timeToMs(newScore.time);
 
   await DB.addLocalScore(newScore);
-  return DB.getLocalHighScores();
+  return DB.getLocalHighScores(newScore.name);
 }
 
 async function updateGlobalScores(newScore) {

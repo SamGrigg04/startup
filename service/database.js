@@ -43,8 +43,12 @@ async function addLocalScore(localScore) {
   return localScoreCollection.insertOne(localScore);
 }
 
-function getLocalHighScores() {
-  const query = { time: { $gt: -1} };
+function getLocalHighScores(username) {
+  const query = { time: { $gt: -1 } };
+
+  if (username) {
+    query.name = username;
+  }
 
   // sorts largest to smallest with a limit of 10
   const options = {

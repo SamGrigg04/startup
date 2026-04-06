@@ -43,7 +43,7 @@ apiRouter.post('/auth/login', async (req, res) => {
   const user = await findUser('username', req.body.username);
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
-      user.token = uuidv4();
+      user.token = uuid.v4();
       await DB.updateUser(user);
       setAuthCookie(res, user.token);
       res.send({ username: user.username });
@@ -81,8 +81,8 @@ apiRouter.get('/localScores', verifyAuth, async (req, res) => {
 });
 
 // SubmitLocalScore
-apiRouter.post('/localScore', verifyAuth, (req, res) => {
-  scores = updateLocalScores(req.body);
+apiRouter.post('/localScore', verifyAuth, async (req, res) => {
+  const scores = await updateLocalScores(req.body);
   res.send(scores);
 });
 
@@ -93,8 +93,8 @@ apiRouter.get('/globalScores', verifyAuth, async (req, res) => {
 });
 
 // SubmitGlobalScore
-apiRouter.post('/globalScore', verifyAuth, (req, res) => {
-  scores = updateGlobalScores(req.body);
+apiRouter.post('/globalScore', verifyAuth, async (req, res) => {
+  const scores = await updateGlobalScores(req.body);
   res.send(scores);
 });
 
@@ -164,7 +164,7 @@ function setAuthCookie(res, authToken) {
   });
 }
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 

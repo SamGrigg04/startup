@@ -5,7 +5,6 @@ const uuid = require('uuid');
 const app = express();
 const DB = require('./database.js');
 const { peerProxy } = require('./peerProxy.js');
-const { timeToMs } = require('../timeUtils.cjs');
 
 const authCookieName = 'token';
 
@@ -111,6 +110,8 @@ app.use((_req, res) => {
 
 // updateScores considers a new score for inclusion in the high scores.
 async function updateLocalScores(newScore) {
+  const { timeToMs } = await import('../timeUtils.js');
+
   // Stores scores as miliseconds for easier comparison
   newScore.time = timeToMs(newScore.time);
 
@@ -119,6 +120,8 @@ async function updateLocalScores(newScore) {
 }
 
 async function updateGlobalScores(newScore) {
+  const { timeToMs } = await import('../timeUtils.js');
+
   newScore.time = timeToMs(newScore.time);
 
   await DB.addGlobalScore(newScore);

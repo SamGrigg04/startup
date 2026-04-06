@@ -4,10 +4,8 @@ import { Button } from 'react-bootstrap';
 import { GameEvent, GameNotifier } from '../gameNotifier';
 import { useTimer } from './timer'
 import { APIcall } from './APIcall';
-import timeUtils from '../../timeUtils.cjs';
+import { timeToMs } from '../../timeUtils.js';
 import './numbrGame.css';
-
-const { timeToMs } = timeUtils;
 
 
 export function NumbrGame(props) {

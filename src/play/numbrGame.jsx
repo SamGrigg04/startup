@@ -33,7 +33,7 @@ export function NumbrGame(props) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  const handleGuess = () => {
+  const handleGuess = async () => {
     const num = Number(guess); // set num to be the user input
     if (!guess || guess.trim() == "" || Number.isNaN(num) || isCorrect) return; // if there is no guess or it is empty or it is not a number or you already got it, do nothing. return early
 
@@ -77,19 +77,21 @@ export function NumbrGame(props) {
     async function updateLocalScores(newScore) {
       await fetch('/api/localScore', {
         method: 'POST',
-        // credentials: 'include',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(newScore),
       });
     }
   
     async function updateGlobalScores(newScore) {
-      await fetch('/api/globalScore', {
+      const response = await fetch('/api/globalScore', {
         method: 'POST',
-        // credentials: 'include',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(newScore),
       });
+
+      if (!response.ok) return null;
+      const scores = await response.json(); // array of global top scores (json object)
+      return scores;
     }
 
   return (

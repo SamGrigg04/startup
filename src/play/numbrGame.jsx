@@ -15,6 +15,7 @@ export function NumbrGame(props) {
   const [hint, setHint] = React.useState(""); // Initializes the hint to be empty and declares the function to update the hint as setHint()
   const [isCorrect, setIsCorrect] = React.useState(false); // They start as incorrect. We can change that with the setIsCorrect() function
   const [lastGuess, setLastGuess] = React.useState(""); // Just here for some nice UI stuff
+  const [scoreNotice, setScoreNotice] = React.useState(""); // This is here for when somebody scores perfectly
 
   const {time, startTimer, stopTimer} = useTimer(); // Get all the time stuff from the timer.jsx
 
@@ -44,8 +45,10 @@ export function NumbrGame(props) {
     // Logic for the dynamic hint
     if (num < target) {
       setHint("higher");
+      setScoreNotice("")
     } else if (num > target) {
       setHint("lower");
+      setScoreNotice("")
     } else {
       setHint("correct");
       setIsCorrect(true); // Also disables the button so they can't keep guessing
@@ -53,6 +56,13 @@ export function NumbrGame(props) {
       
       const timeStr = `${minutesStr}:${secondsStr}:${millisecondsStr}`;
       const scoreObj = { name: name, time: timeStr };
+
+      // If you have a perfect score, display a specific message
+      const scoreMs = timeToMs(scoreObj.time);
+      if (scoreMs === 0) {
+        setScoreNotice(`Congratulations, ${num} is correct! Your time was 00:00:00, so this score will not be displayed on the leaderboard. lol`);
+        return;
+      }
 
       // Saves the result to local storage as a string and updates the leaderboard
       updateLocalScores(scoreObj);
@@ -103,7 +113,7 @@ export function NumbrGame(props) {
             <p>
               {/* Display different things depending on whether the answer is correct, higher, or lower */}
               {/* Seriously React, get a handle on your weird syntax */}
-              {isCorrect ? `Congratulations, ${lastGuess} is correct!` : hint ? `The answer is ${hint} than ${lastGuess}!` : "Make a guess..."} 
+              {scoreNotice ? scoreNotice : isCorrect ? `Congratulations, ${lastGuess} is correct!` : hint ? `The answer is ${hint} than ${lastGuess}!` : "Make a guess..."} 
             </p>
         </div>
 

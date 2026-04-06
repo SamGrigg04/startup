@@ -117,6 +117,11 @@ async function updateLocalScores(newScore) {
   // Stores scores as miliseconds for easier comparison
   newScore.time = timeToMs(newScore.time);
 
+  // If they scored perfectly, don't update the leaderboard
+  if (newScore.time === 0) {
+    return DB.getLocalHighScores(newScore.name);
+  }
+
   await DB.addLocalScore(newScore);
   return DB.getLocalHighScores(newScore.name);
 }
@@ -125,6 +130,11 @@ async function updateGlobalScores(newScore) {
   const { timeToMs } = await import('../timeUtils.js');
 
   newScore.time = timeToMs(newScore.time);
+
+  // If they scored perfectly, don't update the leaderboard
+  if (newScore.time === 0) {
+    return DB.getGlobalHighScores(newScore.name);
+  }
 
   await DB.addGlobalScore(newScore);
   return DB.getGlobalHighScores();

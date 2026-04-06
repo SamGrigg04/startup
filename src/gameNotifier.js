@@ -19,7 +19,7 @@ class GameEventNotifier {
 
   constructor() {
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-    this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
+    this.socket = new WebSocket(`${protocol}://${window.location.hostname}/ws`);
 
     this.socket.onopen = () => {
       this.receiveEvent(new EventMessage('system', GameEvent.System, { msg: 'connected' }));
@@ -39,7 +39,7 @@ class GameEventNotifier {
     };
   }
 
-   broadcastEvent(from, type, value) {
+  broadcastEvent(from, type, value) {
     const event = new EventMessage(from, type, value);
 
     // Check to see if it is open before sending the message

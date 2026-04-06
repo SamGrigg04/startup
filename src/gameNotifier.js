@@ -31,10 +31,16 @@ class GameEventNotifier {
 
     this.socket.onmessage = async (msg) => {
       try {
-        const event = JSON.parse(await msg.data);
+        let payload = msg.data;
+
+        if (payload instanceof Blob) {
+          payload = await payload.text();
+        }
+        
+        const event = JSON.parse(payload);
         this.receiveEvent(event);
-      } catch {
-        // Ignore badly formed messages
+      } catch (e) {
+        console.error('WS parse failed', e, msg.data);
       }
     };
   }

@@ -55,7 +55,19 @@ export function NumbrGame(props) {
 
       // Saves the result to local storage as a string and updates the leaderboard
       updateLocalScores(scoreObj);
-      updateGlobalScores(scoreObj);
+      const scores = await updateGlobalScores(scoreObj);
+
+      if (scores && Array.isArray(scores)) {
+        const scoreMs = timeToMs(scoreObj.time);
+        const rank = scores.findIndex((s) => s.name === name && s.time === scoreMs) + 1;
+
+        if (rank > 0 && rank <= 10) {
+          GameNotifier.broadcastEvent(name, GameEvent.TopTen, {
+            rank,
+            time: scoreObj.time,
+          });
+        }
+      }
       
       GameNotifier.broadcastEvent(name, GameEvent.End, scoreObj);
     }

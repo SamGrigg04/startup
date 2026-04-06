@@ -3,7 +3,8 @@ import { GameEvent, GameNotifier } from '../gameNotifier';
 import './messages.css';
 
 export function Messages({ currentUser }) {
-    const [events, setEvents] = React.useState([]);
+    const [messages, setMessages] = React.useState([]);
+    const POPUP_LIFESPAN = 5000;
 
     React.useEffect(() => {
         GameNotifier.addHandler(handleTopTenEvent);
@@ -19,7 +20,14 @@ export function Messages({ currentUser }) {
         // gets the latest existing state
         // appends the new event, copies all old events and adds the new one to the end
         // keeps only the newest 5 events
-        setEvents((prev) => [...prev, event].slice(-5));
+        const id = Date.now() + Math.random();
+        const text = `${event.from} moved into global top 10 at #${event.value.rank} (${event.value.time})`;
+        setMessages((prev) => [...prev, { id, text }].slice(-5));
+
+        // disappears after 5 seconds
+        setTimeout(() => {
+            setMessages((prev) => prev.filter((m) => m.id !== id));
+        }, POPUP_TTL_MS);
     }
 
     function createMessageArray() {

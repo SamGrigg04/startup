@@ -1,9 +1,10 @@
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const express = require('express');
-const { v4: uuidv4 } = require('uuid');
+const uuid = require('uuid');
 const app = express();
 const DB = require('./database.js');
+const { peerProxy } = require('./peerProxy.js');
 
 const authCookieName = 'token';
 
@@ -137,7 +138,7 @@ async function createUser(username, password) {
     const user = {
     username: username,
     password: passwordHash,
-    token: uuidv4(),
+    token: uuid.v4(),
   };
   await DB.addUser(user);
 
@@ -166,3 +167,5 @@ function setAuthCookie(res, authToken) {
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+peerProxy(httpService);

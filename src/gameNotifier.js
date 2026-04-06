@@ -2,6 +2,7 @@ const GameEvent = {
   System: 'system',
   End: 'gameEnd',
   Start: 'gameStart',
+  TopTen: 'topTen',
 };
 
 class EventMessage {
@@ -13,15 +14,38 @@ class EventMessage {
 }
 
 class GameEventNotifier {
-  events = [];
   handlers = [];
+  socket;
 
   constructor() {
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
+
+    this.socket.onopen = () => {
+      this.receiveEvent(new EventMessage('system', GameEvent.System, { msg: 'connected' }));
+    };
+
+    this.socket.onclose = () => {
+      this.receiveEvent(new EventMessage('system', GameEvent.System, { msg: 'disconnected' }));
+    };
+
+    this.socket.onmessage = async (msg) => {
+      try {
+        const event = JSON.parse(await msg.data);
+        this.receiveEvent(event);
+      } catch {
+        // Ignore badly formed messages
+      }
+    };
   }
 
-  broadcastEvent(from, type, value) {
+   broadcastEvent(from, type, value) {
     const event = new EventMessage(from, type, value);
-    this.receiveEvent(event);
+
+    // Check to see if it is open before sending the message
+    if (this.socket.readyState === WebSocket.OPEN) {
+      this.socket.send(JSON.stringify(event));
+    }
   }
 
   addHandler(handler) {
@@ -33,11 +57,7 @@ class GameEventNotifier {
   }
 
   receiveEvent(event) {
-    this.events.push(event);
-
-    this.handlers.forEach((handler) => {
-      handler(event);
-    });
+    this.handlers.forEach((handler) => handler(event));
   }
 }
 

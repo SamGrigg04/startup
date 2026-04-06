@@ -115,8 +115,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [x] **Backend listens for WebSocket connection** - index.js calls peerProxy which listens for a connection
+- [x] **Frontend makes WebSocket connection** - gameNotifier.js makes a connection on certain events triggering
+- [x] **Data sent over WebSocket connection** - score data is sent as a json object
+- [x] **WebSocket data displayed** - There is a little popup for the user who didn't just score when somebody makes it to the global top 10. Displays on the play page (not on the score page becuase you can see it already)
+- [x] **Application is fully functional** - Are there some features I could add? Yeah. Am I going to? No. Why? CS 240 and a midterm.

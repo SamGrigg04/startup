@@ -5,6 +5,7 @@ const uuid = require('uuid');
 const app = express();
 const DB = require('./database.js');
 const { peerProxy } = require('./peerProxy.js');
+const { timeToMs } = require('../timeUtils.cjs');
 
 const authCookieName = 'token';
 
@@ -124,14 +125,6 @@ async function updateGlobalScores(newScore) {
   return DB.getGlobalHighScores();
 }
 
-// Convert a time string MM:SS:MS into milliseconds
-function timeToMs(timeStr) {
-  if (!timeStr || typeof timeStr !== 'string') return 0;
-  const parts = timeStr.split(':').map(Number);
-  const [min, sec, mil] = parts;
-  return min * 60000 + sec * 1000 + mil * 10;
-}
-    
 async function createUser(username, password) {
   const passwordHash = await bcrypt.hash(password, 10);
 

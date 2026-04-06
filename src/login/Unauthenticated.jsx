@@ -18,7 +18,6 @@ export function Unauthenticated({ name: initialName = '', onLogin }) {
   async function loginOrCreate(endpoint) {
     const response = await fetch(endpoint, {
       method: 'post',
-      // credentials: 'include',
       body: JSON.stringify({ username: name, password: password }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -42,6 +41,8 @@ export function Unauthenticated({ name: initialName = '', onLogin }) {
         maxLength={100}
         onChange={(e) => setName(e.target.value)}
         className="input"
+        id="username"
+        autoComplete='why does the console care about this?'
       />
       <input
         type="password"
@@ -50,6 +51,7 @@ export function Unauthenticated({ name: initialName = '', onLogin }) {
         maxLength={100}
         onChange={(e) => setPassword(e.target.value)}
         className="input"
+        id="password"
       />
       <div>
         <button

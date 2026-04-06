@@ -33,9 +33,9 @@ export function Messages({ currentUser }) {
     function createMessageArray() {
         const messageArray = [];
 
-        for (const [i, event] of events.entries()) {
+        for (const [i, message] of messages.entries()) {
             // <NAME> moved into global top 10 at #<RANK> (<TIME>)
-            const text = `${event.from} moved into global top 10 at #${event.value.rank} (${event.value.time})`;
+            const text = `${message.from} moved into global top 10 at #${message.value.rank} (${message.value.time})`;
 
             messageArray.push(
             <div key={i} className="message-item">

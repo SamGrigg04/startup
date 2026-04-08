@@ -133,7 +133,7 @@ async function updateGlobalScores(newScore) {
 
   // If they scored perfectly, don't update the leaderboard
   if (newScore.time === 0) {
-    return DB.getGlobalHighScores(newScore.name);
+    return DB.getGlobalHighScores();
   }
 
   await DB.addGlobalScore(newScore);
@@ -157,9 +157,9 @@ async function findUser(field, value) {
   if (!value) return null;
 
   if (field === 'token') {
-    return DB.getUserByToken(value);
+    return await DB.getUserByToken(value);
   }
-  return DB.getUser(value);
+  return await DB.getUser(value);
 }
 
 // setAuthCookie in the HTTP response
